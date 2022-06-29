@@ -10,7 +10,8 @@ class Remote:
     '''
         
         Remote Class that interact with the Selenium driver 
-            and perform operations on it.
+            and perform operations on it, using the utils
+                class.
                                                             '''
 
     def __init__(self,driver : webdriver) -> None:
@@ -69,7 +70,7 @@ class Remote:
                 '3. Auto.\n'
 
             ))
-            if quality in range(1,4):
+            if quality in range(1,len(Q)+1):
                 self.utils.set_quality(Q[quality])
                 break
         
@@ -110,7 +111,7 @@ class Remote:
         )
 
         print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''")
-        return 9
+        return len(self.__PLAYING_COMMANDS)
     
     def serach_commands(self):
         print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n")
@@ -122,7 +123,7 @@ class Remote:
         )
 
         print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n")
-        return 2
+        return len(self.__SEARCH_COMMANDS)
 
     
 

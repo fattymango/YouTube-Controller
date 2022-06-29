@@ -12,7 +12,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Utils:
 
     '''
-        Utility Class as a lower layer   for The Remote class,
+        Utility Class as a lower layer for The Remote class,
             contains all the functionalities that operates 
                 on Selenium driver.                         
 
@@ -72,6 +72,7 @@ class Utils:
                 EC.presence_of_element_located((By.XPATH, SEARCH))
             )
             time.sleep(.1)
+            search.clear()
             search.send_keys(str(q))
             search.send_keys(Keys.RETURN)
 

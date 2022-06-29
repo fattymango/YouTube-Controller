@@ -2,6 +2,11 @@
     Static Keys and Paths that are used in the application.
                                                                 '''
 
+'''                                               Links                                                  '''
+
+YOUTUBE     =   "https://www.youtube.com"
+
+'''                                                                                                      '''
 
 '''                                             FILEPATHS                                                '''
 
