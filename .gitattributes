@@ -1,2 +1,1 @@
-special-vendored-path/* linguist-vendored
-jquery.js linguist-vendored=false
+driver/* linguist-vendored
