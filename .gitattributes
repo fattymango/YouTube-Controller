@@ -1,4 +1,1 @@
-driver/* linguist-vendored
-adblock/* linguist-vendored
-driver/adblock/* linguist-vendored
-*.js linguist-language=Python
+*.* linguist-language=Python
