@@ -32,7 +32,7 @@ in this project there are 3 main classes as follows.
 
 ## YouTubeController()
     
-    This class initializes the Chrome driver and sets it up, and loads the YouTube page rady to use.
+    This class initializes the Chrome driver and sets it up, and loads the YouTube page ready to use.
     
 #### Class Functions  
 | Function | Description |
