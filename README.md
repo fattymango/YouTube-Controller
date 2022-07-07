@@ -65,9 +65,9 @@ The Remote API is still under construction, which will allow connection between 
   functions while the driver is running.
 
 # Issues
-## Vulnerability & Bugs
+- ## Vulnerability & Bugs
   Many functions are buggy and can break the program, most of these functions will be stable next update.
 
-## User-Friendly
+- ## User-Friendly
   The project is still not user-friendly since the phone application is not out yet.
   Even the terminal controller is not well implemented.
