@@ -55,5 +55,12 @@ class YoutubeController:
         time.sleep(.1)
         
     def get_driver(self):
+        self.__driver.find_element_by_id
         return self.__driver
+    
+    def test(self):
         
+        while True:
+            x = input("bla bla")
+            if x :
+                print(self.__driver.current_url.split('/')[3][0])

@@ -17,49 +17,46 @@ class Remote:
     def __init__(self,driver : webdriver) -> None:
         self.__driver = driver
         self.utils = Utils(self.__driver)
-        ''' 
-            Switch Cases 
-                            '''
-                            
-        self.__SEARCH_COMMANDS={
-            1:self.select_video,
-            2:self.search}
 
-        self.__PLAYING_COMMANDS={
-        1:self.toggle_play,
-        2:self.toggle_caption,
-        3:self.toggle_fullscreen,
-        4:self.toggle_mute,
-        5:self.forward_10s,
-        6:self.backward_10s,
-        7:self.set_quality,
-        8:self.search,
-        9:self.refresh}
-        self.STATE = SEARCH_STATE
-        self.states ={
-            0: [self.serach_commands,self.__SEARCH_COMMANDS],
-            1: [self.playing_video_commands,self.__PLAYING_COMMANDS]}
-    
+        ''' 
+                    Switch Cases 
+                                            '''
+                        
+        self.__COMMANDS={
+
+        1   :   self.toggle_play,
+        2   :   self.toggle_caption,
+        3   :   self.toggle_fullscreen,
+        4   :   self.toggle_mute,
+        5   :   self.forward_10s,
+        6   :   self.backward_10s,
+        7   :   self.set_quality,
+        8   :   self.search,
+        9   :   self.select_video,
+        10  :   self.get_recommendations,
+        11  :   self.refresh,
+        }
+       
     def toggle_play (self):
-        self.utils.execute_action(TOGGLE_PLAY)
+        print(self.utils.execute_action(BUTTONS["TOGGLE_PLAY"]))
     def toggle_caption (self):
-        self.utils.execute_action(TOGGLE_CAPTION)   
+        print(self.utils.execute_action(BUTTONS["TOGGLE_CAPTION"]))   
     def toggle_fullscreen (self):
-        self.utils.execute_action(TOGGLE_FULLSCREEN)   
+        print(self.utils.execute_action(BUTTONS["TOGGLE_FULLSCREEN"]))
     def toggle_mute (self):
-        self.utils.execute_action(TOGGLE_MUTE)
+        print(self.utils.execute_action(BUTTONS["TOGGLE_MUTE"]))
     def forward_10s (self,iter=1):
-        for i in range(0,iter):
-            self.utils.execute_action(FORWARD)
+        for _ in range(0,iter):
+            print(self.utils.execute_action(BUTTONS["FORWARD"]))
     def backward_10s(self,iter=1):
-        for i in range(0,iter):
-            self.utils.execute_action(BACKWARD)
+        for _ in range(0,iter):
+            print(self.utils.execute_action(BUTTONS["BACKWARD"]))
     
     def set_quality(self):
         Q = {
-            1:HIGHEST,
-            2:LOWEST,
-            3:AUTO
+            1:SCRIPTS["HIGHEST"],
+            2:SCRIPTS["LOWEST"],
+            3:SCRIPTS["AUTO"]
         }
         while True:
             quality = int(input (
@@ -84,18 +81,39 @@ class Remote:
         self.utils.search(q)
         self.STATE = SEARCH_STATE
 
+    def __get_current_window_state(self):
+        url = self.__driver.current_url
+        
+        try:
+            indicator = url.split('/')[3][0]
+            state = "SEARCH" if indicator == "r" else "WATCH"
+            
+        except:
+            state = "HOME"
+        return state
+
     def select_video(self):
         
         while True:
             index = int(input (' Enter the video\'s index.[1..n]\n'))
             if index-1 in range(0,5):
-                self.utils.select_video(index-1)
+                self.utils.select_video(self.__get_current_window_state(),index-1)
                 break
-        self.STATE = PLAYING_STATE
         
+        
+    def get_recommendations(self):
+        payload = self.utils.get_recommended_videos()
+        for video in payload:
+            print('\nVIDEO INFO\n'+
+            video['title']+'\n'+
+            video['channel']+'\n'+
+            video['views']+'\nEND OF VIDEO INFO'
+            )
+        
+        return payload
 
+    def __commands_printer (self):
 
-    def playing_video_commands (self):
         print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n")
         print(
              '........... ENTER THE COMMAND NUMBER ...........\n\n'+
@@ -107,43 +125,25 @@ class Remote:
              '6. backward 10 Seconds\n'+
              '7. Select Quality\n'+
              '8. Search\n'+
-             '9. Refresh\n'
+             '9. Select Video\n'+
+             '10. Get Recommndations\n'+
+             '11. Refresh\n'
         )
-
         print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''")
-        return len(self.__PLAYING_COMMANDS)
+        return len(self.__COMMANDS)
     
-    def serach_commands(self):
-        print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n")
-
-        print(
-             '........... ENTER THE COMMAND NUMBER ...........\n\n'+
-             '1. Select Video\n'+
-             '2. Search\n'
-        )
-
-        print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n")
-        return len(self.__SEARCH_COMMANDS)
-
     
-
-        
-
     def main(self):
         inp = ""
-        l = self.states[self.STATE][0]()
         while str(inp).capitalize() != 'Q' :
-            
+            l = self.__commands_printer()
             while True:
                 inp = int(input())
                 if inp in range(1,l+1):
-                    self.states[self.STATE][1][inp]()
+                    self.__COMMANDS[inp]()
                     break
-            self.clear()
-            l = self.states[self.STATE][0]()        
-
-
-
+            # self.clear()
+                  
     def clear(self):
         os.system('cls' if os.name=='nt' else 'clear')
     def __del__(self):

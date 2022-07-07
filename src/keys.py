@@ -16,44 +16,53 @@ DRIVER      =   "C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\
 '''                                                                                                      '''
 
 
-'''                                              BUTTONS                                                 '''
+BUTTONS = {
+"TOGGLE_PLAY"           :   "K"
+,"TOGGLE_CAPTION"        :   "C"
+,"TOGGLE_FULLSCREEN"     :   "F"
+,"TOGGLE_MUTE "          :   "M"
+,"FORWARD"               :   "L"
+,"BACKWARD"              :   "J"
+}
 
-TOGGLE_PLAY         =   "K"
-TOGGLE_CAPTION      =   "C"
-TOGGLE_FULLSCREEN   =   "F"
-TOGGLE_MUTE         =   "M"
-FORWARD             =   "L"
-BACKWARD            =   "J"
+XPATHS = {
+    "SEARCH"                        :   '/html/body/ytd-app/div[1]/div/ytd-masthead/div[3]/div[2]/ytd-searchbox/form/div[1]/div[1]/input'
+    ,"SEARCH_RESULTS"               :   "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]"
 
-'''                                                                                                      '''
-
-
-'''                                              XPATHS                                                  '''
-
-SEARCH              =   '/html/body/ytd-app/div[1]/div/ytd-masthead/div[3]/div[2]/ytd-searchbox/form/div[1]/div[1]/input'
-SEARCH_RESULTS      =   "/html/body/ytd-app/div[1]/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]"
-VIDEO_CHOICE        =   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]'
-VIDEOS_CONTAINER    =   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]'
-SETTINGS_CONTAINER  =   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[1]/div/div/div/ytd-player/div/div/div[29]'
-'''                                                                                                      '''
-
-
-'''                                             SELECTORS                                                '''
-
-SETTINGS    =   'document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-button.ytp-settings-button").click();'
-QUALITY     =   'document.querySelector("#ytp-id-17 > div > div").lastElementChild.click();'
-HIGHEST     =   'document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu > div:nth-child(1)").click()'
-LOWEST      =   'n = document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu").childNodes.length - 1;selector = "#ytp-id-17 > div > div.ytp-panel-menu > div:nth-child("+n.toString()+")";document.querySelector(selector).click();'
-AUTO        =   'document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu").lastElementChild.click()'
+    ,"VIDEOS_CONTAINER"             :   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-search/div[1]/ytd-two-column-search-results-renderer/div/ytd-section-list-renderer/div[2]/ytd-item-section-renderer/div[3]'
+    ,"SETTINGS_CONTAINER"           :   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[1]/div/div/div/ytd-player/div/div/div[29]'
+    
+    ,"SUGGESTED_VIDEOS_CONTAINER"   :   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[10]/ytd-watch-next-secondary-results-renderer/div[2]/ytd-item-section-renderer/div[3]'
+    ,"SUGGESTED_VIDEO_TITLE"        :   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[10]/ytd-watch-next-secondary-results-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-compact-video-renderer[1]/div[1]/div/div[1]/a/h3/span'
+    }
 
 
-'''                                                                                                      '''
+
+
+SCRIPTS = {
+    "SETTINGS"      :   'document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-button.ytp-settings-button").click();'
+    ,"QUALITY"      :   'document.querySelector("#ytp-id-17 > div > div").lastElementChild.click();'
+    ,"HIGHEST"      :   'document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu > div:nth-child(1)").click()'
+    ,"LOWEST"       :   'n = document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu").childNodes.length - 1;selector = "#ytp-id-17 > div > div.ytp-panel-menu > div:nth-child("+n.toString()+")";document.querySelector(selector).click();'
+    ,"AUTO"         :   'document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu").lastElementChild.click()'
+    ,"AYTO_PLAY"     :   'document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(1)").click()'
+    }
+
+SELECTORS = {
+    "MUTE"                 :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > span > button'
+    ,"PLAY"                :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > button'
+    ,"CURRENT_TIME"        :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-current'
+    ,"FULL_TIME"           :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration' 
+    ,"AUTO_PLAY"           :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(1) > div > div'
+}
+
 
 '''                                                TAGS                                                  '''
-
-PLAYER_CONTAINER    =   'player-container'
-VIDEO_PLAYER        =   'ytd-video-renderer'
-
+TAGS = {
+"PLAYER_CONTAINER"      :   'player-container'
+,"VIDEO_PLAYER"         :   'ytd-video-renderer'
+,"SUGGESTED_VIDEO"      :   'ytd-compact-video-renderer'
+}
 '''                                                                                                      '''
 
 '''                                                ENUMS                                                 '''

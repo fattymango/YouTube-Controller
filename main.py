@@ -1,3 +1,4 @@
+
 from src.keys import YOUTUBE
 from src.remote import Remote
 from src.youtubecontroller import YoutubeController
@@ -11,9 +12,8 @@ from src.youtubecontroller import YoutubeController
                                                         '''
 
 
-driver = YoutubeController(url=YOUTUBE).get_driver()
+driver = YoutubeController(url=YOUTUBE)
 
-remote = Remote(driver)
+remote = Remote(driver.get_driver())
 
 remote.main()
-
