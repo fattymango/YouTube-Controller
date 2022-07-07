@@ -11,54 +11,63 @@ YouTube controller uses Chrome driver to open the YouTube website  control it us
 >**Note**
 The Remote API is still under construction, which will allow connection between smartphones and PC.
 
+# Whats New.
+- ## Status & Information:
+  Status of the current video player and recommended videos are now sent whenever the user excutes a command, which will make the remote app more reliable and real-time.
 
+- ## Classes optimization and structure:
+  Major functions improvments, functions now are more reliable, structured and dynamically written.  
+
+# Requirments
+- ## Chrome Driver
+  It's better to stick with the driver provided within the project, changing the driver may cause some errors and functions amy not work properly (YouTube changes its selectors depending on the   chrome version)
+  
+- ## Requirements.txt
+  Requirements.txt contains all the packages needed to make this project work.
+  ```
+  pip install -r requirements.txt
+  ```
+- ## Development
+  Development on this project has been done on :
+  - Windows 10
+  - Python - 3.9
+  - Selenium - 4.1.2 
+
+- # Contribution
+  Any contibution on this project would be appreciated, if you face any issue you can open an issue and we will handle it ASAP.
+  For more information do not hesitate to contact me (mkassab215@outlook.com).
 # Upcoming Features 
-- ### Remote API
-    
-      API that connects the smartphone and the PC through a channel 
+- ### Remote API:
+  API that connects the smartphone and the PC through a channel 
       
-- ### Mobile Application 
-      Which will interact with the API and excute commands remotly.
-- ### Functions
-    
-      More functions are under construction, and more bug fixes and optimization.
+- ### Mobile Application: 
+  Which will interact with the API and excute commands remotly.
+- ### Functions & Features:
+  More functions are under construction, and more bug fixes and optimization.
       
-- ### Session Save
-      Session save will keep track of user's account and history which will make the experience better.   
+- ### Session Save:
+  Session save will keep track of user's account and history which will make the experience better.   
     
  
 # Classes
-in this project there are 3 main classes as follows.
+  In this project there are 3 main classes as follows.
 
 ## YouTubeController()
-    
-    This class initializes the Chrome driver and sets it up, and loads the YouTube page ready to use.
-    
-#### Class Functions  
-| Function | Description |
-| --- | --- |
-| ```__setup``` | Initiates the driver with the options. |
-| ```__load_page ```| Loads the YouTube website. |
-|``` get_driver``` | Returns  the driver after setup. |
+  This class initializes the Chrome driver and sets it up, and loads the YouTube page ready to use.
+  
 
 ## Utility()
-    This class is the lower layer that does all of the hard work and interact with the driver.
+  This class is the lower layer that does all of the hard work and interact with the driver.
     
- #### Class Functions     
-| Function | Description |
-| --- | --- |
-| ```execute_action(action)```| Performs a simple command through a shortcut. <br/> Takes ```action``` which specified in ```Keys.py```.|
-| ``` set_quality(quality) ``` | Sets the quality of the video. <br/> Takes ```quality``` which specified in ```Keys.py```. |
-| ``` search(q) ``` | Searches for video. <br/> Takes a query  ```q``` to search for. |
-| ``` select_video(index) ``` | Selects a video of the search results. Takes  ```index``` the index of the video. |
-
 
 ## Remote()
-    This class acts like an intermediate between the driver and the utility class, which excutes
-    functions while the driver is running.
+  This class acts like an intermediate between the driver and the utility class, which excutes
+  functions while the driver is running.
 
 # Issues
-- Some functions are unstable and not efficient.
-- Selenium ```WebElement.click()``` sometimes miss clicks the video and clicks the channel link instead (doesn't occur when fullscreen)
-- Remote main still vulnerable and buggy.
-- Not User-Friendly.
+## Vulnerability & Bugs
+  Many functions are buggy and can break the program, most of these functions will be stable next update.
+
+## User-Friendly
+  The project is still not user-friendly since the phone application is not out yet.
+  Even the terminal controller is not well implemented.
