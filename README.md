@@ -52,15 +52,15 @@ The Remote API is still under construction, which will allow connection between 
 # Classes
   In this project there are 3 main classes as follows.
 
-## YouTubeController()
+- ## YouTubeController()
   This class initializes the Chrome driver and sets it up, and loads the YouTube page ready to use.
   
 
-## Utility()
+- ## Utility()
   This class is the lower layer that does all of the hard work and interact with the driver.
     
 
-## Remote()
+- ## Remote()
   This class acts like an intermediate between the driver and the utility class, which excutes
   functions while the driver is running.
 
