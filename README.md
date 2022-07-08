@@ -16,7 +16,7 @@ The Remote API is still under construction, which will allow connection between 
   Status of the current video player and recommended videos are now sent whenever the user excutes a command, which will make the remote app more reliable and real-time.
 
 - ## Classes optimization and structure:
-  Major functions improvments, functions now are more reliable, structured and dynamically written.  
+  Major functions improvments, functions now are more reliable, structured and dynamic.  
 
 # Requirments
 - ## Chrome Driver
