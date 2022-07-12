@@ -1,6 +1,4 @@
 import time
-
-
 from .keys import *
 
 from selenium import webdriver
@@ -68,25 +66,19 @@ class Utils:
         return self.get_status()
 
     def set_quality (self,quality):
+        self.__driver.execute_script(SCRIPTS["SETTINGS"])
+        time.sleep(.5)
         try:
-            WebDriverWait(self.__driver, 10).until(
-                EC.presence_of_element_located((By.ID, TAGS["PLAYER_CONTAINER"]))
-            )
-            self.__driver.execute_script(SCRIPTS["SETTINGS"])
-
-            try:
-                WebDriverWait(self.__driver, 10).until(
-                    EC.presence_of_element_located((By.XPATH, XPATHS["SETTINGS_CONTAINER"]))
-                )
-                self.__driver.execute_script(XPATHS["QUALITY"])
-                time.sleep(.3)
-                self.__driver.execute_script(quality)    
-            except Exception:
-                print(Exception)
+            self.__driver.execute_script(SCRIPTS["QUALITY"])
+            time.sleep(.3)
             
+            self.__driver.execute_script(quality)
+            return True    
         except Exception:
             print(Exception)
             return False
+            
+
         
         
 
@@ -132,14 +124,14 @@ class Utils:
              }[state](index)
             
         except Exception:
-            print("wtf")
+            
             return False
     
     def get_recommended_videos(self):
         payload = []
         videos = self.__driver.find_element_by_tag_name('ytd-watch-next-secondary-results-renderer').find_elements_by_tag_name('ytd-compact-video-renderer')
         
-        for  i in range(0,5):
+        for i in range(0,5):
             x = videos[i].text.split('\n')
             payload.append({
 

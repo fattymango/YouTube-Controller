@@ -15,7 +15,6 @@ DRIVER      =   "C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\
 
 '''                                                                                                      '''
 
-
 BUTTONS = {
 "TOGGLE_PLAY"           :   "K"
 ,"TOGGLE_CAPTION"        :   "C"
@@ -34,9 +33,8 @@ XPATHS = {
     
     ,"SUGGESTED_VIDEOS_CONTAINER"   :   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[10]/ytd-watch-next-secondary-results-renderer/div[2]/ytd-item-section-renderer/div[3]'
     ,"SUGGESTED_VIDEO_TITLE"        :   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[10]/ytd-watch-next-secondary-results-renderer/div[2]/ytd-item-section-renderer/div[3]/ytd-compact-video-renderer[1]/div[1]/div/div[1]/a/h3/span'
+    ,"SETTINGS_BUTTON"              :   '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[1]/div/div/div/ytd-player/div/div/div[31]/div[2]/div[2]/button[4]'
     }
-
-
 
 
 SCRIPTS = {
@@ -45,7 +43,7 @@ SCRIPTS = {
     ,"HIGHEST"      :   'document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu > div:nth-child(1)").click()'
     ,"LOWEST"       :   'n = document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu").childNodes.length - 1;selector = "#ytp-id-17 > div > div.ytp-panel-menu > div:nth-child("+n.toString()+")";document.querySelector(selector).click();'
     ,"AUTO"         :   'document.querySelector("#ytp-id-17 > div > div.ytp-panel-menu").lastElementChild.click()'
-    ,"AYTO_PLAY"     :   'document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(1)").click()'
+    ,"AUTO_PLAY"     :   'document.querySelector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(1)").click()'
     }
 
 SELECTORS = {
@@ -56,18 +54,9 @@ SELECTORS = {
     ,"AUTO_PLAY"           :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(1) > div > div'
 }
 
-
-'''                                                TAGS                                                  '''
 TAGS = {
 "PLAYER_CONTAINER"      :   'player-container'
 ,"VIDEO_PLAYER"         :   'ytd-video-renderer'
 ,"SUGGESTED_VIDEO"      :   'ytd-compact-video-renderer'
 }
-'''                                                                                                      '''
 
-'''                                                ENUMS                                                 '''
-
-SEARCH_STATE = 0
-PLAYING_STATE = 1
-
-'''                                                                                                      '''

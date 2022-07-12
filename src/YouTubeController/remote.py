@@ -53,6 +53,11 @@ class Remote:
             print(self.utils.execute_action(BUTTONS["BACKWARD"]))
     
     def set_quality(self):
+        state = self.__get_current_window_state()
+        print(state)
+        if not state == "WATCH":
+            print("YOU CANT SET THE QUALITY WITHOUT A VIDEO OPENED.")
+            return False
         Q = {
             1:SCRIPTS["HIGHEST"],
             2:SCRIPTS["LOWEST"],
@@ -69,6 +74,7 @@ class Remote:
             ))
             if quality in range(1,len(Q)+1):
                 self.utils.set_quality(Q[quality])
+                print(Q[quality])
                 break
         
     
@@ -79,17 +85,18 @@ class Remote:
 
         q = input (' Enter the search phrase.\n')
         self.utils.search(q)
-        self.STATE = SEARCH_STATE
+        
 
     def __get_current_window_state(self):
         url = self.__driver.current_url
         
-        try:
+        try : 
             indicator = url.split('/')[3][0]
-            state = "SEARCH" if indicator == "r" else "WATCH"
-            
-        except:
-            state = "HOME"
+            if indicator == "r": state = "SEARCH"
+            elif indicator == "w" : state = "WATCH"
+        except : state = "HOME"
+    
+        
         return state
 
     def select_video(self):
