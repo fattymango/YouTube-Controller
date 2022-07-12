@@ -33,7 +33,7 @@ The Remote API is still under construction, which will allow connection between 
   - Python - 3.9
   - Selenium - 4.1.2 
 
-- # Contribution
+# Contribution
   Any contibution on this project would be appreciated, if you face any issue you can open an issue and we will handle it ASAP.
   For more information do not hesitate to contact me (mkassab215@outlook.com).
 # Upcoming Features 
