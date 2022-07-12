@@ -1,5 +1,5 @@
 # YouTube Controller
-YouTube controller is a remote controller that uses Selenium and Chrome driver to control the YouTube website and video player.
+YouTube controller is a Smartphone remote controller that controls the YouTube website and video player on PC.
 
 >**Warning**
 This is a the first version of the project, not user-friendly.
