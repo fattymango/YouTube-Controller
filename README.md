@@ -44,18 +44,3 @@ The Remote API is still under construction, which will allow connection between 
   Session save will keep track of user's account and history which will make the experience better.   
     
  
-# Classes
-  In this project there are 3 main classes as follows.
-
-- ## YouTubeController()
-  This class initializes the Chrome driver and sets it up, and loads the YouTube page ready to use.
-  
-
-- ## Utility()
-  This class is the lower layer that does all of the hard work and interact with the driver.
-    
-
-- ## Remote()
-  This class acts like an intermediate between the driver and the utility class, which excutes
-  functions while the driver is running.
-
