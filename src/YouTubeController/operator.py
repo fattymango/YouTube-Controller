@@ -1,7 +1,7 @@
 import os
 from .remote import Remote
 
-class Operater:
+class Operator:
     def __init__(self,driver) -> None:
         self.driver = driver
         self.remote = Remote(driver)

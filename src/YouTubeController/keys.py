@@ -16,12 +16,12 @@ DRIVER      =   "C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\
 '''                                                                                                      '''
 
 BUTTONS = {
-"TOGGLE_PLAY"           :   "K"
-,"TOGGLE_CAPTION"        :   "C"
-,"TOGGLE_FULLSCREEN"     :   "F"
-,"TOGGLE_MUTE "          :   "M"
-,"FORWARD"               :   "L"
-,"BACKWARD"              :   "J"
+"TOGGLE_PLAY"               :   "K"
+,"TOGGLE_CAPTION"           :   "C"
+,"TOGGLE_FULLSCREEN"        :   "F"
+,"TOGGLE_MUTE"              :   "M"
+,"FORWARD"                  :   "L"
+,"BACKWARD"                 :   "J"
 }
 
 XPATHS = {

@@ -45,6 +45,7 @@ class Utils:
             }
         except Exception as e:
             print(e)
+            return {}
 
     def execute_action(self,action):
 

@@ -18,42 +18,25 @@ class Remote:
         self.__driver = driver
         self.utils = Utils(self.__driver)
 
-        ''' 
-                    Switch Cases 
-                                            '''
-                        
-        self.__COMMANDS={
-
-        1   :   self.toggle_play,
-        2   :   self.toggle_caption,
-        3   :   self.toggle_fullscreen,
-        4   :   self.toggle_mute,
-        5   :   self.forward_10s,
-        6   :   self.backward_10s,
-        7   :   self.set_quality,
-        8   :   self.search,
-        9   :   self.select_video,
-        10  :   self.get_recommendations,
-        11  :   self.refresh,
-        }
-       
+    def get_status(self):
+        return self.utils.get_status()    
     def toggle_play (self):
-        print(self.utils.execute_action(BUTTONS["TOGGLE_PLAY"]))
+        return self.utils.execute_action(BUTTONS["TOGGLE_PLAY"])
     def toggle_caption (self):
-        print(self.utils.execute_action(BUTTONS["TOGGLE_CAPTION"]))   
+        return self.utils.execute_action(BUTTONS["TOGGLE_CAPTION"])
     def toggle_fullscreen (self):
-        print(self.utils.execute_action(BUTTONS["TOGGLE_FULLSCREEN"]))
+        return self.utils.execute_action(BUTTONS["TOGGLE_FULLSCREEN"])
     def toggle_mute (self):
-        print(self.utils.execute_action(BUTTONS["TOGGLE_MUTE"]))
+        return self.utils.execute_action(BUTTONS["TOGGLE_MUTE"])
     def forward_10s (self,iter=1):
         for _ in range(0,iter):
-            print(self.utils.execute_action(BUTTONS["FORWARD"]))
+            return self.utils.execute_action(BUTTONS["FORWARD"])
     def backward_10s(self,iter=1):
         for _ in range(0,iter):
-            print(self.utils.execute_action(BUTTONS["BACKWARD"]))
+            return self.utils.execute_action(BUTTONS["BACKWARD"])
     
     def set_quality(self):
-        state = self.__get_current_window_state()
+        state = self.get_current_window_state()
         print(state)
         if not state == "WATCH":
             print("YOU CANT SET THE QUALITY WITHOUT A VIDEO OPENED.")
@@ -81,31 +64,21 @@ class Remote:
     def refresh (self):
         self.__driver.refresh()
 
-    def search(self):
-
-        q = input (' Enter the search phrase.\n')
+    def search(self,q = None):
+        if not q:
+            q = input (' Enter the search phrase.\n')
         self.utils.search(q)
         
 
-    def __get_current_window_state(self):
-        url = self.__driver.current_url
-        
-        try : 
-            indicator = url.split('/')[3][0]
-            if indicator == "r": state = "SEARCH"
-            elif indicator == "w" : state = "WATCH"
-        except : state = "HOME"
     
-        
-        return state
 
-    def select_video(self):
-        
-        while True:
-            index = int(input (' Enter the video\'s index.[1..n]\n'))
-            if index-1 in range(0,5):
-                self.utils.select_video(self.__get_current_window_state(),index-1)
-                break
+    def select_video(self,index = None):
+        if not index : 
+            while True:
+                index = int(input (' Enter the video\'s index.[1..n]\n'))
+                if index-1 in range(0,5):
+                    break
+        self.utils.select_video(self.get_current_window_state(),index-1)
         
         
     def get_recommendations(self):
@@ -118,40 +91,14 @@ class Remote:
             )
         
         return payload
-
-    def __commands_printer (self):
-
-        print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''\n")
-        print(
-             '........... ENTER THE COMMAND NUMBER ...........\n\n'+
-             '1. Play / Pause\n'+
-             '2. Caption\n'+
-             '3. FullScreen / Minimize\n'+
-             '4. Mute / UnMute\n'+
-             '5. Forward 10 Seconds\n'+
-             '6. backward 10 Seconds\n'+
-             '7. Select Quality\n'+
-             '8. Search\n'+
-             '9. Select Video\n'+
-             '10. Get Recommndations\n'+
-             '11. Refresh\n'
-        )
-        print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''")
-        return len(self.__COMMANDS)
+    def get_current_window_state(self):
+        url = self.__driver.current_url
+        
+        try : 
+            indicator = url.split('/')[3][0]
+            if indicator == "r": state = "SEARCH"
+            elif indicator == "w" : state = "WATCH"
+        except : state = "HOME"
     
-    
-    def main(self):
-        inp = ""
-        while str(inp).capitalize() != 'Q' :
-            l = self.__commands_printer()
-            while True:
-                inp = int(input())
-                if inp in range(1,l+1):
-                    self.__COMMANDS[inp]()
-                    break
-            # self.clear()
-                  
-    def clear(self):
-        os.system('cls' if os.name=='nt' else 'clear')
-    def __del__(self):
-        self.__driver.quit()
+        
+        return state

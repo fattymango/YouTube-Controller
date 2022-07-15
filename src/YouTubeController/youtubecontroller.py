@@ -21,7 +21,7 @@ class YoutubeController:
         self.__url = url
         self.__load_page()
         self.__driver.set_window_position(0,0)
-        self.__driver.fullscreen_window()
+        self.__driver.maximize_window()
 
     def __setup(self):
         '''

@@ -1,6 +1,6 @@
 
 from YouTubeController.keys import YOUTUBE
-from YouTubeController.main import Operater
+from YouTubeController.operator import Operator
 from YouTubeController.youtubecontroller import YoutubeController
 
 
@@ -13,7 +13,7 @@ from YouTubeController.youtubecontroller import YoutubeController
 
 
 driver = YoutubeController(url=YOUTUBE)
-op = Operater(driver.get_driver())
+op = Operator(driver.get_driver())
 op.main()
 # remote = Remote(driver.get_driver())
 
