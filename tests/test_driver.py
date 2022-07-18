@@ -13,3 +13,8 @@ def test_load_page():
 
 def test_tabs():
     assert len(driver.window_handles) == 1
+
+def test_teardown():
+    driver.close()
+    driver.quit()
+    
