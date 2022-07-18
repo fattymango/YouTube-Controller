@@ -1,14 +1,14 @@
 from time import sleep
-from src import YoutubeController,Remote,Utils
+from src import YoutubeController,Remote
 
 def test_remote():
     global driver
     global remote
-    global utils
+    
     controller = YoutubeController("https://www.youtube.com/watch?v=klZNvJArVSE&ab_channel=BennytheButcher")
     driver = controller.get_driver()
     remote = Remote(driver)
-    utils = Utils(driver)
+    
     assert remote != None
 
 
