@@ -11,7 +11,8 @@ YOUTUBE     =   "https://www.youtube.com"
 '''                                             FILEPATHS                                                '''
 
 EXTENSION   =   r'C:\Users\malak\Desktop\Projects\Python\YoutubeController\driver\adblock\4.46.2_0'
-DRIVER      =   "C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\\driver\\chromedriver.exe"
+# DRIVER      =   "C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\\driver\\chromedriver.exe"
+DRIVER      =   "..\\YoutubeController\\driver\\chromedriver.exe"
 
 '''                                                                                                      '''
 
