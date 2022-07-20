@@ -37,7 +37,7 @@ class YoutubeController:
         
         chrome_options = Options()
         chrome_options.add_argument('load-extension=' + EXTENSION)
-        chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
+        
         driver =webdriver.Chrome(executable_path= DRIVER,chrome_options=chrome_options)
         driver.create_options()
         driver.set_window_position(-10000,0)

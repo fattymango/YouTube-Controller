@@ -54,7 +54,7 @@ def test_select_video():
 
 def test_recommendations():
     sleep(2)
-    assert remote.get_recommendations() != None
+    assert len(remote.get_recommendations()) != 0
 
 def test_teardown():
     driver.close()
