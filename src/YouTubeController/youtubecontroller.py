@@ -50,9 +50,10 @@ class YoutubeController:
     
     def __load_page(self):
 
-        time.sleep(.5)
-        self.__driver.switch_to.window(self.__driver.window_handles[1])
-        self.__driver.close()
+        time.sleep(3)
+        if len(self.__driver.window_handles) ==2 :
+            self.__driver.switch_to.window(self.__driver.window_handles[1])
+            self.__driver.close()
         
         self.__driver.switch_to.window(self.__driver.window_handles[0])
         self.__driver.get(self.__url)
