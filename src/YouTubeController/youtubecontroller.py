@@ -38,7 +38,7 @@ class YoutubeController:
                                                          '''
         
         chrome_options = Options()
-        chrome_options.add_argument('load-extension=' + EXTENSION)
+        # chrome_options.add_argument('load-extension=' + EXTENSION)
         
         driver =webdriver.Chrome(executable_path= DRIVER,chrome_options=chrome_options)
         

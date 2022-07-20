@@ -13,7 +13,7 @@ YOUTUBE     =   "https://www.youtube.com"
 # EXTENSION   =   r'C:\Users\malak\Desktop\Projects\Python\YoutubeController\driver\adblock\4.46.2_0'
 # DRIVER      =   "C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\\driver\\chromedriver.exe"
 # DRIVER      =   "..\\YoutubeController\\driver\\chromedriver.exe"
-EXTENSION   =   r'D:\a\YoutubeController\driver\adblock\4.46.2_0'
+# EXTENSION   =   r'D:\a\YoutubeController\driver\adblock\4.46.2_0'
 DRIVER      =   "src\\YouTubeController\\driver\\chromedriver.exe"
 '''                                                                                                      '''
 
