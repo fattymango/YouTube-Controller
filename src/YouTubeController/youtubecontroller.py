@@ -1,6 +1,8 @@
 
 import time
 
+from webdriver_manager.chrome import ChromeDriverManager
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
@@ -37,8 +39,9 @@ class YoutubeController:
         
         chrome_options = Options()
         chrome_options.add_argument('load-extension=' + EXTENSION)
-        
-        driver =webdriver.Chrome(executable_path= DRIVER,chrome_options=chrome_options)
+        PATH = ChromeDriverManager().install()
+        # driver =webdriver.Chrome(executable_path= DRIVER,chrome_options=chrome_options)
+        driver =webdriver.Chrome(executable_path= PATH,chrome_options=chrome_options)
         driver.create_options()
         driver.set_window_position(-10000,0)
         
