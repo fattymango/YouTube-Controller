@@ -32,8 +32,9 @@ The Remote API is still under construction, which will allow connection between 
   Development on this project has been done on :
   - Windows 10
   - Python - 3.9
-  - Selenium - 4.1.2 
-
+  - Selenium - 4.1.2
+  - ChromeDriver - 103.0.5060.134
+  
 # Contribution
   Any contibution on this project would be appreciated, if you face any issue you can open an issue and we will handle it ASAP.
   For more information do not hesitate to contact me (mkassab215@outlook.com).
