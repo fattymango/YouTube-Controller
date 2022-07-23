@@ -1,6 +1,7 @@
-# YouTube Controller
+# YouTube Controller ![Tests](https://github.com/FattyMango/YouTube-Controller/actions/workflows/tests.yml/badge.svg)
 YouTube controller is a remote controller that uses Selenium and Chrome driver to control the YouTube website and video player.
-![Tests](https://github.com/FattyMango/YouTube-Controller/actions/workflows/tests.yml/badge.svg)
+
+
 >**Warning**
 This is a the first version of the project, not user-friendly.
 
