@@ -104,7 +104,7 @@ class Utils:
         )
         time.sleep(2)
         #Locate the video and click it
-        container.find_elements_by_tag_name(TAGS["VIDEO_PLAYER"])[index].click()
+        video = container.find_elements_by_tag_name(TAGS["VIDEO_PLAYER"])[index].find_element_by_css_selector('#video-title > yt-formatted-string').click()
         
     
     def __click_recommended_video(self,index):
