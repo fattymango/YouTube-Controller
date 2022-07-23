@@ -3,7 +3,7 @@ YouTube controller is a remote controller that uses Selenium and Chrome driver t
 
 
 >**Warning**
-This is a the first version of the project, not user-friendly.
+This is the first version of the project, it's not user-friendly yet.
 
 
 # How it Works?
