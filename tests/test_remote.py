@@ -49,7 +49,7 @@ def test_search():
     assert remote.get_current_window_state() == "SEARCH"
 
 def test_select_video():
-    remote.select_video(1)
+    remote.select_video(2)
     assert remote.get_current_window_state() == "WATCH"
 
 def test_recommendations():
