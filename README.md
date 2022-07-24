@@ -14,14 +14,14 @@ The Remote API is still under construction, which will allow connection between 
 
 # Whats New.
 - ## Status & Information:
-  Status of the current video player and recommended videos are now sent whenever the user excutes a command, which will make the remote app more reliable and real-time.
+  Status of the current video player and recommended videos are now sent whenever the user excutes a command, which will make the remote app more reliable, informative and real-time.
 
 - ## Classes optimization and structure:
   Major functions improvments, functions now are more reliable, structured and dynamic.  
 
 # Requirments
 - ## Chrome Driver
-  It's better to stick with the driver provided within the project, changing the driver may cause some errors and functions amy not work properly (YouTube changes its selectors depending on the   chrome version)
+  It's better to stick with the driver provided within the project, changing the driver may cause some errors and functions may not work properly (YouTube changes its selectors depending on the   chrome version)
   
 - ## Requirements.txt
   Requirements.txt contains all the packages needed to make this project work.
@@ -34,6 +34,7 @@ The Remote API is still under construction, which will allow connection between 
   - Python - 3.9
   - Selenium - 4.1.2
   - ChromeDriver - 103.0.5060.134
+  - Excutable Chrome
   
 # Contribution
   Any contibution on this project would be appreciated, if you face any issue you can open an issue and we will handle it ASAP.
@@ -50,21 +51,6 @@ The Remote API is still under construction, which will allow connection between 
 - ### Session Save:
   Session save will keep track of user's account and history which will make the experience better.   
     
- 
-# Classes
-  In this project there are 3 main classes as follows.
-
-- ## YouTubeController()
-  This class initializes the Chrome driver and sets it up, and loads the YouTube page ready to use.
-  
-
-- ## Utility()
-  This class is the lower layer that does all of the hard work and interact with the driver.
-    
-
-- ## Remote()
-  This class acts like an intermediate between the driver and the utility class, which excutes
-  functions while the driver is running.
 
 # Issues
 - ## Vulnerability & Bugs
@@ -72,4 +58,4 @@ The Remote API is still under construction, which will allow connection between 
 
 - ## User-Friendly
   The project is still not user-friendly since the phone application is not out yet.
-  Even the terminal controller is not well implemented.
+  Even the terminal controller is not stable.
