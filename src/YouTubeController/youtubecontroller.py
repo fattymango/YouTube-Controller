@@ -1,11 +1,11 @@
 
 import time
 
-from webdriver_manager.chrome import ChromeDriverManager
+
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service 
+
 from .remote import Remote
 from .keys import *
 
@@ -51,11 +51,10 @@ class YoutubeController:
     def __load_page(self):
 
         time.sleep(3)
-        if len(self.__driver.window_handles) ==2 :
-            print("i have two tabs")
+        if len(self.__driver.window_handles) == 2 :
             self.__driver.switch_to.window(self.__driver.window_handles[1])
             self.__driver.close()
-        else : print("i have one tab")
+        
         self.__driver.switch_to.window(self.__driver.window_handles[0])
         self.__driver.get(self.__url)
         time.sleep(.1)

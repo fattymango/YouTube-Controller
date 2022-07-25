@@ -11,12 +11,7 @@ YOUTUBE     =   "https://www.youtube.com"
 '''                                             FILEPATHS                                                '''
 import pathlib
 
-# EXTENSION   =   r'C:\Users\malak\Desktop\Projects\Python\YoutubeController\src\YouTubeController\driver\adblock\4.46.2_0'
-
-# DRIVER      =   "C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\\driver\\chromedriver.exe"
-# DRIVER      =   "..\\YoutubeController\\driver\\chromedriver.exe"
-# EXTENSION   =   "D:\\a\\YouTube-Controller\\YouTube-Controller\\src\\YouTubeController\\driver\\adblock\\4.46.2_0"
-EXTENSION   =   str(pathlib.Path().resolve()).replace('\\','\\\\')+"\\src\\YouTubeController\\driver\\adblock\\4.46.2_0"
+EXTENSION   =   str(pathlib.Path().resolve()).replace('\\','\\\\')+"\\src\\YouTubeController\\driver\\adblock\\adblock"
 DRIVER      =   str(pathlib.Path().resolve()).replace('\\','\\\\')+"\\src\\YouTubeController\\driver\\chromedriver.exe"
 
 '''                                                                                                      '''

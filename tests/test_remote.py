@@ -43,14 +43,21 @@ def test_backward():
     assert status_before != status
 
 def test_search():
-    
-    
     remote.search("The Weeknd")
-    assert remote.get_current_window_state() == "SEARCH"
+    for i in range(5):
+        if remote.get_current_window_state() == "SEARCH" :
+            return True
+        sleep(.8)
+    assert False
 
 def test_select_video():
     remote.select_video(2)
-    assert remote.get_current_window_state() == "WATCH"
+    for i in range(5):
+        if remote.get_current_window_state() == "WATCH" :
+            return True
+        sleep(.8)
+    assert False
+    
 
 def test_recommendations():
     sleep(2)
