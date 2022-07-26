@@ -56,6 +56,7 @@ def test_select_video():
         if remote.get_current_window_state() == "WATCH" :
             return True
         sleep(.8)
+        remote.select_video(2)
     assert False
     
 
