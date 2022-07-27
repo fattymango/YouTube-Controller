@@ -34,6 +34,7 @@ def test_mute():
 
 def test_forward():
     status_before = remote.get_status()["Current_time"]
+    sleep(0.1)
     status = remote.forward_10s()["Current_time"]
     assert status_before != status
 
