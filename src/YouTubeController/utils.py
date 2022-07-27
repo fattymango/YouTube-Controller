@@ -11,7 +11,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Utils:
 
     '''
-        Utility Class as a lower layer for The Remote class,
+        Utility Class acts as a lower layer for The Remote class,
             contains all the functionalities that operates 
                 on Selenium driver.                         
 
@@ -50,7 +50,7 @@ class Utils:
     def execute_action(self,action):
 
         '''
-            Function perform all the basic command using its 
+            Function performs all the basic command using its 
                 shortcut, such as (play (K), Mute (M)...etc)
                                                                 '''
                                                                 

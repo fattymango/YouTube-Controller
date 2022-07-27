@@ -5,7 +5,7 @@ def test_remote():
     global driver
     global remote
     
-    controller = YoutubeController("https://www.youtube.com/watch?v=klZNvJArVSE&ab_channel=BennytheButcher")
+    controller = YoutubeController("https://www.youtube.com/watch?v=klZNvJArVSE&ab_channel=BennytheButcher",testing=True)
     driver = controller.get_driver()
     remote = Remote(driver)
     

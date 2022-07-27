@@ -46,6 +46,8 @@ class YoutubeController:
             options.add_argument('load-extension=' + EXTENSION)
             options.add_argument('--ignore-ssl-errors=yes')
             options.add_argument('--ignore-certificate-errors')
+            options.add_argument('--disable-dev-shm-usage')
+            
 
             driver = webdriver.Remote(options=options)
         else : 
@@ -53,7 +55,7 @@ class YoutubeController:
             chrome_options.add_argument('load-extension=' + EXTENSION)
             driver =webdriver.Chrome(executable_path= DRIVER,chrome_options=chrome_options)
             driver.create_options()
-        
+        driver.maximize_window()
         driver.set_window_position(-10000,0)
         return driver
     
