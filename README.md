@@ -13,7 +13,7 @@ The Remote API is still under construction, which will allow connection between 
 
 # Requirments
 - ## Chrome Driver
-  It's better to stick with the driver provided within the project, changing the driver may cause some errors and functions amy not work properly (YouTube changes its selectors depending on the   chrome version)
+  It's better to stick with the driver provided within the project, changing the driver may cause some errors and functions may not work properly (YouTube changes its selectors depending on the   chrome version)
   
 - ## Requirements.txt
   Requirements.txt contains all the packages needed to make this project work.
