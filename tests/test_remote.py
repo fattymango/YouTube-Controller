@@ -5,7 +5,7 @@ def test_remote():
     global driver
     global remote
     
-    controller = YoutubeController("https://www.youtube.com/watch?v=klZNvJArVSE&ab_channel=BennytheButcher",testing=True)
+    controller = YoutubeController("https://www.youtube.com/watch?v=klZNvJArVSE&ab_channel=BennytheButcher",True)
     driver = controller.get_driver()
     remote = Remote(driver)
     
@@ -44,23 +44,27 @@ def test_backward():
     assert status_before != status
 
 def test_search():
-    remote.search("The Weeknd")
-    for i in range(5):
+    assert remote.search("The Weeknd") == True
+    for _ in range(5):
         if remote.get_current_window_state() == "SEARCH" :
             return True
         sleep(.8)
     assert False
 
+
+
 def test_select_video():
     remote.select_video(2)
-    for i in range(5):
+    for _ in range(5):
         if remote.get_current_window_state() == "WATCH" :
             return True
         sleep(.8)
         remote.select_video(2)
     assert False
     
-
+def test_set_quality():
+    assert remote.set_quality(1) == True
+    
 def test_recommendations():
     sleep(2)
     assert len(remote.get_recommendations()) != 0

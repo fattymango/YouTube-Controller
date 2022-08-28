@@ -3,17 +3,15 @@
                                                                 '''
 
 '''                                               Links                                                  '''
-
 YOUTUBE     =   "https://www.youtube.com"
 
 '''                                                                                                      '''
 
 '''                                             FILEPATHS                                                '''
-import pathlib
 
-EXTENSION   =   str(pathlib.Path().resolve()).replace('\\','\\\\')+"\\src\\YouTubeController\\driver\\adblock\\adblock"
-DRIVER      =   str(pathlib.Path().resolve()).replace('\\','\\\\')+"\\src\\YouTubeController\\driver\\chromedriver.exe"
 
+EXTENSION   =   "\\YouTubeController\\driver\\adblock\\adblock"
+DRIVER      =   "\\YouTubeController\\driver\\chromedriver.exe"
 '''                                                                                                      '''
 
 BUTTONS = {
@@ -53,6 +51,9 @@ SELECTORS = {
     ,"CURRENT_TIME"        :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-current'
     ,"FULL_TIME"           :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration' 
     ,"AUTO_PLAY"           :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(1) > div > div'
+    ,"OPTIONS_BUTTON"      :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-button.ytp-settings-button.ytp-4k-quality-badge'
+    ,"QUALITY_BUTTON"      :   '#ytp-id-17 > div > div > div:last-child'
+
 }
 
 TAGS = {

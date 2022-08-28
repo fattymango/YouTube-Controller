@@ -5,7 +5,7 @@ from src import YoutubeController
 
 def test_driver():
     global driver
-    controller = YoutubeController("https://www.youtube.com/",testing=True)
+    controller = YoutubeController("https://www.youtube.com/",True)
     driver = controller.get_driver()
     assert driver != None
 

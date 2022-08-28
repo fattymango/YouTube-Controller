@@ -1,6 +1,7 @@
 
+import os
 import time
-
+import pathlib
 
 
 
@@ -20,40 +21,24 @@ class YoutubeController:
                                                             '''
     def __init__(self,url,testing:bool=False) -> None:
         self.__url = url
-        self.__testing = testing
-        self.__driver = self.__setup()
+        self.__driver = self.__setup(testing)
         self.__load_page()
         self.__driver.set_window_position(0,0)
         self.__driver.maximize_window()
 
-    def __setup(self):
-        '''
-            For Automatic driver installation use this
-            
-                PATH = ChromeDriverManager().install()
-                                                         '''
+    def __setup(self,testing):
         
-        '''
-            For Manual driver installation provide 
-                the exact location of the driver
-                                                         '''
-        
-        
-        
-        
-        if self.__testing:
+        if testing:
             options = webdriver.ChromeOptions()
-            options.add_argument('load-extension=' + EXTENSION)
+            options.add_argument('load-extension=' + str(pathlib.Path().resolve()).replace('\\','\\\\')+EXTENSION)
             options.add_argument('--ignore-ssl-errors=yes')
             options.add_argument('--ignore-certificate-errors')
             options.add_argument('--disable-dev-shm-usage')
-            
-
             driver = webdriver.Remote(options=options)
         else : 
-            chrome_options = Options()
-            chrome_options.add_argument('load-extension=' + EXTENSION)
-            driver =webdriver.Chrome(executable_path= DRIVER,chrome_options=chrome_options)
+            chrome_options =    Options()
+            chrome_options.add_argument('load-extension=' + str(os.getcwd())+EXTENSION)
+            driver =    webdriver.Chrome(str(os.getcwd())+DRIVER,chrome_options=chrome_options)
             driver.create_options()
         driver.maximize_window()
         driver.set_window_position(-10000,0)

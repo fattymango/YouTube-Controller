@@ -1,3 +1,4 @@
+import json
 from selenium import webdriver
 
 import os
@@ -35,30 +36,20 @@ class Remote:
         for _ in range(0,iter):
             return self.utils.execute_action(BUTTONS["BACKWARD"])
     
-    def set_quality(self):
-        state = self.get_current_window_state()
-        print(state)
-        if not state == "WATCH":
-            print("YOU CANT SET THE QUALITY WITHOUT A VIDEO OPENED.")
-            return False
-        Q = {
-            1:SCRIPTS["HIGHEST"],
-            2:SCRIPTS["LOWEST"],
-            3:SCRIPTS["AUTO"]
-        }
+    def set_quality(self,quality):
         while True:
-            quality = int(input (
-
-                'Choose Quality.\n'+
-                '1. Highest.\n'+
-                '2. Lowest.\n'+
-                '3. Auto.\n'
-
-            ))
-            if quality in range(1,len(Q)+1):
-                self.utils.set_quality(Q[quality])
-                print(Q[quality])
-                break
+            state = self.get_current_window_state()
+            if state == "WATCH":
+                # print("YOU CANT SET THE QUALITY WITHOUT A VIDEO OPENED.")
+                # return False
+                Q = {
+                    1:SCRIPTS["HIGHEST"],
+                    2:SCRIPTS["LOWEST"],
+                    3:SCRIPTS["AUTO"]
+                }
+                
+                return self.utils.set_quality(Q[int(quality)])
+                
         
     
     def refresh (self):
@@ -67,7 +58,7 @@ class Remote:
     def search(self,q = None):
         if not q:
             q = input (' Enter the search phrase.\n')
-        self.utils.search(q)
+        return self.utils.search(q)
         
 
     
@@ -78,19 +69,41 @@ class Remote:
                 index = int(input (' Enter the video\'s index.[1..n]\n'))
                 if index-1 in range(0,5):
                     break
-        self.utils.select_video(self.get_current_window_state(),index-1)
+        self.utils.select_video(self.get_current_window_state(),int(index))
         
         
+    
+        
+
     def get_recommendations(self):
-        payload = self.utils.get_recommended_videos()
-        for video in payload:
-            print('\nVIDEO INFO\n'+
-            video['title']+'\n'+
-            video['channel']+'\n'+
-            video['views']+'\nEND OF VIDEO INFO'
-            )
-        
+        payload = []
+        if self.get_current_window_state() == 'HOME':
+            payload = self.utils.get_home_videos()
+           
+            try:
+                for video in payload:
+                    print('\nVIDEO INFO\n'+
+                    video['title']+'\n'+
+                    video['channel']+'\n'+
+                    video['views']+'\nEND OF VIDEO INFO'
+                    )
+                # print(len(payload))
+                # print(json.dumps(payload,indent=2,ensure_ascii=False))
+                return payload
+            except Exception:print(Exception)
+
+        # elif self.get_current_window_state() == 'WATCH':
+        #     payload = self.utils.get_recommended_videos()
+        #     for video in payload:
+        #         print('\nVIDEO INFO\n'+
+        #         video['title']+'\n'+
+        #         video['channel']+'\n'+
+        #         video['views']+'\nEND OF VIDEO INFO'
+        #         )
+            
         return payload
+        
+        
     def get_current_window_state(self):
         url = self.__driver.current_url
         
