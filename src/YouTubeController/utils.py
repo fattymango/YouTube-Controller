@@ -71,7 +71,7 @@ class Utils:
 
     def set_quality (self,quality):
         try:
-            WebDriverWait(self.__driver, 10).until(
+            WebDriverWait(self.__driver, 5).until(
                 EC.invisibility_of_element_located((By.CSS_SELECTOR, SELECTORS["OPTIONS_BUTTON"]))
             )
             self.__driver.execute_script(SCRIPTS["SETTINGS"])

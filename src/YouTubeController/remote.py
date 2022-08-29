@@ -49,6 +49,7 @@ class Remote:
                 }
                 
                 return self.utils.set_quality(Q[int(quality)])
+            return False
                 
         
     
