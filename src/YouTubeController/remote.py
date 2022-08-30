@@ -35,7 +35,23 @@ class Remote:
     def backward_10s(self,iter=1):
         for _ in range(0,iter):
             return self.utils.execute_action(BUTTONS["BACKWARD"])
-    
+    def playback_up(self,iter=1):
+        for _ in range(0,iter):
+            return self.utils.execute_action(BUTTONS["PLAYBACK_UP"])
+    def playback_down(self,iter=1):
+        for _ in range(0,iter):
+            return self.utils.execute_action(BUTTONS["PLAYBACK_DOWN"])
+
+    def next_video(self):
+        return self.utils.execute_action(SHIFTBUTTONS["NEXT_VIDEO"],shift=True)
+    def prev_video(self):
+        return self.utils.execute_action(SHIFTBUTTONS["PREV_VIDEO"],shift=True)
+    def like_video(self):
+        return self.utils.like_video()
+    def dislike_video(self):
+        return self.utils.dislike_video()
+    def subscribe(self):
+        return self.utils.subscribe()
     def set_quality(self,quality):
         while True:
             state = self.get_current_window_state()
@@ -116,3 +132,7 @@ class Remote:
     
         
         return state
+
+    def __del__(self):
+        self.__driver.close()
+        self.__driver.quit()

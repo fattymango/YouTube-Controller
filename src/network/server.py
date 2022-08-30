@@ -28,7 +28,7 @@ class Server:
 
         self.server_socket.listen()
         self.sockets_list.append(self.server_socket)
-        print(f'Listening for connections on {socket.gethostname()}:{self.PORT}...')
+        print(f'Listening for connections on {socket.gethostbyname(socket.gethostname())}:{self.PORT}...')
 
     def __receive_compound_message(self,data):
         command,option = int(data[:2]),data[2:]

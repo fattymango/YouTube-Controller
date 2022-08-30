@@ -1,14 +1,16 @@
 from email import message
 import os
+
+from .youtubecontroller import YoutubeController
 from .remote import Remote
 from network import Server
 
 
 class Operator:
 
-    def __init__(self, driver) -> None:
-        self.driver = driver
-        self.remote = Remote(driver)
+    def __init__(self, controller : YoutubeController) -> None:
+        self.controller = controller
+        self.remote = Remote(self.controller.get_driver())
         self.server = Server(self.remote)
         ''' 
                     Switch Cases 
@@ -23,11 +25,22 @@ class Operator:
             5:  self.remote.forward_10s,
             6:  self.remote.backward_10s,
             7:  self.remote.refresh,
-            8:  self.remote.set_quality,
-            9:  self.remote.select_video,
-            10: self.remote.search,
+            8:  self.remote.playback_up,
+            9:  self.remote.playback_down,
+            10:  self.remote.next_video,
+            11:  self.remote.prev_video,
+            12:  self.remote.like_video,
+            13:  self.remote.dislike_video,
+            14:  self.remote.subscribe,
+            15:  self.__set_quality,
+            # 16:  self.__select_video,
+            17: self.__search,
+            # 18: self.__destroy_remote,
+            # 19: self.__start_remote
         }
-
+    def __destroy_remote(self):
+        self.remote.__del__()
+   
     def __set_quality(self):
         while True:
             quality = int(
@@ -52,24 +65,25 @@ class Operator:
         print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''")
         return len(self.__COMMANDS)
 
-    def main(self):
-        for message,option in self.server.main():
-            if int(message) > 7:
-                self.__COMMANDS[int(message)](option)
-            else:
-                self.__COMMANDS[int(message)]()
-            print(message)
+    def main(self,debug):
+        if not debug:
+            for message,option in self.server.main():
+                if int(message) > 14:
+                    self.__COMMANDS[int(message)](option)
+                else:
+                    self.__COMMANDS[int(message)]()
+                print(message)
             
-            # self.server.send_response('success')
-        # inp = ""
-        # while str(inp).capitalize() != 'Q' :
-        #     l = self.__commands_printer()
-        #     while True:
-        #         inp = int(input())
-        #         if inp in range(1,l+1):
-        #             self.__COMMANDS[inp]()
-        #             break
-        #     # self.clear()
+        else:
+            inp = ""
+            while str(inp).capitalize() != 'Q' :
+                l = self.__commands_printer()
+                while True:
+                    inp = int(input())
+                    if inp in range(1,l+1):
+                        self.__COMMANDS[inp]()
+                        break
+                # self.clear()
 
     def clear(self):
         os.system('cls' if os.name == 'nt' else 'clear')

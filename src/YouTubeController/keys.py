@@ -12,6 +12,7 @@ YOUTUBE     =   "https://www.youtube.com"
 
 EXTENSION   =   "\\YouTubeController\\driver\\adblock\\adblock"
 DRIVER      =   "\\YouTubeController\\driver\\chromedriver.exe"
+
 '''                                                                                                      '''
 
 BUTTONS = {
@@ -21,7 +22,16 @@ BUTTONS = {
 ,"TOGGLE_MUTE"              :   "M"
 ,"FORWARD"                  :   "L"
 ,"BACKWARD"                 :   "J"
+,"PLAYBACK_UP"              :   ">"
+,"PLAYBACK_DOWN"            :   "<"
 }
+
+
+SHIFTBUTTONS = {
+"PREV_VIDEO"                 :   "P"
+,"NEXT_VIDEO"                :   "N"
+}
+
 
 XPATHS = {
     "SEARCH"                        :   '/html/body/ytd-app/div[1]/div/ytd-masthead/div[3]/div[2]/ytd-searchbox/form/div[1]/div[1]/input'
@@ -53,7 +63,9 @@ SELECTORS = {
     ,"AUTO_PLAY"           :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(1) > div > div'
     ,"OPTIONS_BUTTON"      :   '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-button.ytp-settings-button.ytp-4k-quality-badge'
     ,"QUALITY_BUTTON"      :   '#ytp-id-17 > div > div > div:last-child'
-
+    ,"LIKE_BUTTON"         :   '#top-level-buttons-computed > ytd-toggle-button-renderer:nth-child(1) > a'
+    ,'DISLIKE_BUTTON'      :   '#top-level-buttons-computed > ytd-toggle-button-renderer:nth-child(2) > a'
+    ,'SUBSCRIBE'           :   '#subscribe-button > ytd-button-renderer > a' 
 }
 
 TAGS = {

@@ -49,7 +49,7 @@ class Utils:
             print(e)
         return payload
 
-    def execute_action(self,action):
+    def execute_action(self,action,shift = False):
 
         '''
             Function performs all the basic command using its 
@@ -60,15 +60,46 @@ class Utils:
             WebDriverWait(self.__driver, 10).until(
                 EC.presence_of_element_located((By.ID, TAGS["PLAYER_CONTAINER"]))
             )
-            self.action.send_keys(action)
+            if shift:
+                self.action.send_keys(Keys.SHIFT+action)
+            else :
+                self.action.send_keys(action)
+
             self.action.perform()
             return self.get_status()
         except Exception:
             print(Exception)
             return False
             
-        
+    def like_video(self):
+        try:
+            button = WebDriverWait(self.__driver, 5).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, SELECTORS["LIKE_BUTTON"]))
+            )
+            
+            button.click()
+            return True
+        except: return False
 
+    def dislike_video(self):
+        try:
+            button = WebDriverWait(self.__driver, 5).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, SELECTORS["DISLIKE_BUTTON"]))
+            )
+            
+            button.click()
+            return True
+        except: return False
+
+    def subscribe(self):
+        try:
+            button = WebDriverWait(self.__driver, 5).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, SELECTORS["SUBSCRIBE"]))
+            )
+            
+            button.click()
+            return True
+        except: return False    
     def set_quality (self,quality):
         try:
             WebDriverWait(self.__driver, 5).until(

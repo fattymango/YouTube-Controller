@@ -13,8 +13,8 @@ from YouTubeController.youtubecontroller import YoutubeController
 
 
 driver = YoutubeController(url=YOUTUBE)
-op = Operator(driver.get_driver())
-op.main()
+op = Operator(driver)
+op.main(debug=True)
 # remote = Remote(driver.get_driver())
 
 # remote.main()
