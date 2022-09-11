@@ -2,6 +2,7 @@
 import socket
 import select
 import json
+from time import sleep
 from YouTubeController.remote import Remote
 
 class Server:
@@ -55,7 +56,7 @@ class Server:
     def check_new_connection(self):
         
         client_socket, client_address = self.server_socket.accept()
-        print(client_address)
+        # print(client_address)
         user = self.receive_message(client_socket)
         if user is False:
             return False
@@ -66,19 +67,14 @@ class Server:
         return True
 
     def get_new_message(self,notified_socket):
-        data = json.dumps(self.remote.get_status())
+        
         message = self.receive_message(notified_socket)['data']
         
-        print(message[:2])
-        if int(message[:2])>7:
+        # print(message[:2])
+        if int(message[:2])>50:
             command,option = self.__receive_compound_message(message)
         else :
             command,option = message,None
-        notified_socket.send(bytes(data,encoding="utf-8"))
-        notified_socket.close()
-        print('Closed connection from: {}'.format(self.clients[notified_socket]['data']))        
-        self.sockets_list.remove(notified_socket)
-        del self.clients[notified_socket]
         return True, command,option
 
     
@@ -97,7 +93,22 @@ class Server:
                 else:
                     is_new_message, message,option = self.get_new_message(notified_socket)
                     if not is_new_message : continue
-                    else : yield  message,option
+                    else : 
+                        yield  message,option
+                        if int(message) in [1,17,20,21,52,53]:
+                            payload = bytes(json.dumps(self.remote.get_status()),encoding="utf-8")
+                        elif int(message) in [3]:
+                            payload = bytes(json.dumps(self.remote.get_status()),encoding="utf-8")
+                        elif int(message) in [54]:
+                            payload = bytes(json.dumps(self.remote.get_status(wait = True)),encoding="utf-8")
+                        else:
+                            payload= bytes(json.dumps(self.remote.get_status(flag = False)),encoding="utf-8")
+                        notified_socket.send(payload)
+                        notified_socket.close()
+                        print('Closed connection from: {}'.format(self.clients[notified_socket]['data']))        
+                        self.sockets_list.remove(notified_socket)
+                        del self.clients[notified_socket]
+                        
             for notified_socket in exception_sockets:
 
                 self.sockets_list.remove(notified_socket)

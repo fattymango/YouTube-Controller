@@ -1,4 +1,3 @@
-from email import message
 import os
 
 from .youtubecontroller import YoutubeController
@@ -12,35 +11,52 @@ class Operator:
         self.controller = controller
         self.remote = Remote(self.controller.get_driver())
         self.server = Server(self.remote)
+        self.__COMMANDS = {
+            0:   self.keep_connection,
+            1:   self.keep_connection,
+            3:   self.__destroy_driver,
+            4:   self.__start_driver,
+
+            11:  self.remote.toggle_play,
+            12:  self.remote.toggle_caption,
+            13:  self.remote.toggle_fullscreen,
+            14:  self.remote.toggle_mute,
+            15:  self.remote.forward_10s,
+            16:  self.remote.backward_10s,
+            17:  self.remote.refresh,
+            18:  self.remote.playback_up,
+            19:  self.remote.playback_down,
+            20:  self.remote.next_video,
+            21:  self.remote.prev_video,
+            22:  self.remote.like_video,
+            23:  self.remote.dislike_video,
+            24:  self.remote.toggle_subscribe,
+            25:  self.remote.start_of_video,
+            26:  self.remote.end_of_video,
+            27:  self.remote.toggle_auto_play,
+            28:  self.remote.playback_up,
+            29:  self.remote.playback_down,
+            30:  self.remote.volume_up,
+            31:  self.remote.volume_down,
+            51:  self.remote.set_quality,
+            52:  self.remote.select_video,
+            53:  self.remote.go_to_url, 
+            54:  self.remote.search
+            
+        }
         ''' 
                     Switch Cases 
                                             '''
 
-        self.__COMMANDS = {
-            0:  self.remote.get_recommendations,
-            1:  self.remote.toggle_play,
-            2:  self.remote.toggle_caption,
-            3:  self.remote.toggle_fullscreen,
-            4:  self.remote.toggle_mute,
-            5:  self.remote.forward_10s,
-            6:  self.remote.backward_10s,
-            7:  self.remote.refresh,
-            8:  self.remote.playback_up,
-            9:  self.remote.playback_down,
-            10:  self.remote.next_video,
-            11:  self.remote.prev_video,
-            12:  self.remote.like_video,
-            13:  self.remote.dislike_video,
-            14:  self.remote.subscribe,
-            15:  self.__set_quality,
-            # 16:  self.__select_video,
-            17: self.__search,
-            # 18: self.__destroy_remote,
-            # 19: self.__start_remote
-        }
-    def __destroy_remote(self):
-        self.remote.__del__()
-   
+    def keep_connection(self):
+        return True
+    def __destroy_driver(self):
+        self.controller.close_driver()
+        self.remote.destroy_driver()
+
+    def __start_driver(self):
+        self.controller.initialize_driver()
+        self.remote.set_driver(self.controller.get_driver())
     def __set_quality(self):
         while True:
             quality = int(
@@ -48,6 +64,9 @@ class Operator:
                       '3. Auto.\n'))
             if quality in range(1, 4):
                 return self.remote.set_quality(quality)
+
+   
+                
 
     def __search(self):
         q = input(' Enter the search phrase.\n')
@@ -65,28 +84,30 @@ class Operator:
         print("''''''''''''''''''''''''''''''''''''''''''''''''''''''''")
         return len(self.__COMMANDS)
 
-    def main(self,debug):
+    def main(self,debug = False):
         if not debug:
             for message,option in self.server.main():
-                if int(message) > 14:
+                if int(message) > 50:
                     self.__COMMANDS[int(message)](option)
                 else:
                     self.__COMMANDS[int(message)]()
-                print(message)
+                
             
         else:
+            
             inp = ""
             while str(inp).capitalize() != 'Q' :
                 l = self.__commands_printer()
                 while True:
-                    inp = int(input())
-                    if inp in range(1,l+1):
-                        self.__COMMANDS[inp]()
-                        break
+
+                    inp = int(input())                   
+                    self.__COMMANDS[inp]()
+                    
                 # self.clear()
 
     def clear(self):
         os.system('cls' if os.name == 'nt' else 'clear')
 
     def __del__(self):
-        self.remote.__del__()
+        self.__destroy_driver()  
+

@@ -1,12 +1,16 @@
-
-import os
 import time
 import pathlib
-
+import psutil
+import os
+import requests
+import subprocess
 
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+
+
 
 
 from .keys import *
@@ -25,8 +29,8 @@ class YoutubeController:
         self.__load_page()
         self.__driver.set_window_position(0,0)
         self.__driver.maximize_window()
-
-    def __setup(self,testing):
+        self.__driver.fullscreen_window()
+    def __setup(self,testing=False):
         
         if testing:
             options = webdriver.ChromeOptions()
@@ -36,32 +40,55 @@ class YoutubeController:
             options.add_argument('--disable-dev-shm-usage')
             driver = webdriver.Remote(options=options)
         else : 
-            chrome_options =    Options()
-            chrome_options.add_argument('load-extension=' + str(os.getcwd())+EXTENSION)
-            driver =    webdriver.Chrome(str(os.getcwd())+DRIVER,chrome_options=chrome_options)
-            driver.create_options()
-        driver.maximize_window()
-        driver.set_window_position(-10000,0)
+            if self.__check_instance_running():
+                
+                if not self.__check_instance_port():
+                    subprocess.call("TASKKILL /F /IM chrome.exe", shell=False)
+                    self.__create_new_instance()
+            chrome_options = Options()
+            chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
+            
+            driver = webdriver.Chrome(ChromeDriverManager(print_first_line=False).install(),options=chrome_options,)
+            
+            
+        
         return driver
     
-    def __load_page(self):
+    def __check_instance_port(self):
+        try:
+            requests.get("http://127.0.0.1:9222/")
+            return True
+        except:
+            return False
 
-        time.sleep(3)
-        if len(self.__driver.window_handles) == 2 :
-            self.__driver.switch_to.window(self.__driver.window_handles[1])
-            self.__driver.close()
+    def __check_instance_running(self):
+        return "chrome.exe" in (i.name() for i in psutil.process_iter())
         
-        self.__driver.switch_to.window(self.__driver.window_handles[0])
+    def __create_new_instance(self):
+       os.system('start chrome.exe --remote-debugging-port=9222')
+    def __load_page(self):
+        self.__driver.switch_to.new_window('window')
+        self.__driver.maximize_window()
+        self.__driver.set_window_position(-10000,0)
+        self.__driver.get("https://www.youtube.com/")
         self.__driver.get(self.__url)
         time.sleep(.1)
         
     def get_driver(self):
-        self.__driver.find_element_by_id
         return self.__driver
     
-    def test(self):
+
+
         
-        while True:
-            x = input("bla bla")
-            if x :
-                print(self.__driver.current_url.split('/')[3][0])
+        
+
+    def initialize_driver (self):
+        self.__driver = self.__setup(False)
+        self.__load_page()
+        self.__driver.set_window_position(0,0)
+        self.__driver.maximize_window()
+    
+    def close_driver(self):
+        self.__driver.close()
+        self.__driver.quit()
+        self.__driver = None

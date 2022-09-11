@@ -12,9 +12,9 @@ from YouTubeController.youtubecontroller import YoutubeController
                                                         '''
 
 
-driver = YoutubeController(url=YOUTUBE)
+driver = YoutubeController(YOUTUBE)
 op = Operator(driver)
-op.main(debug=True)
+op.main(debug=False)
 # remote = Remote(driver.get_driver())
 
 # remote.main()

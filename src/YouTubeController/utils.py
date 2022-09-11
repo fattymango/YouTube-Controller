@@ -1,4 +1,6 @@
 import time
+
+from YouTubeController.status import Status
 from .keys import *
 
 from selenium import webdriver
@@ -23,50 +25,38 @@ class Utils:
 
         self.__driver = driver
         self.action = ActionChains(self.__driver)
+    def set_driver(self,driver):
+        self.__driver = driver
+        self.action = ActionChains(self.__driver)
 
-    def get_status(self):
-        payload = {}
+    def destroy_driver(self):
+        self.__driver = None
+    
+    def go_to_url(self,url):
         try:
-            play = self.__driver.find_element_by_css_selector(SELECTORS["PLAY"]).get_attribute("title")
-            mute = self.__driver.find_element_by_css_selector(SELECTORS["MUTE"]).get_attribute("title")
-            ctime = self.__driver.find_element_by_css_selector(SELECTORS["CURRENT_TIME"]).text
-            ftime = self.__driver.find_element_by_css_selector(SELECTORS["FULL_TIME"]).text
-            u2play = self.__driver.find_element_by_css_selector(SELECTORS["AUTO_PLAY"]).get_attribute("aria-checked")
-            
-            play = True if play == "Pause (k)" else False
-            mute = True if mute == "Unmute (m)" else False
-            u2play = True if u2play == "true" else False
-            payload = {
-                "Playing" : play,
-                "Muted" : mute,
-                "AUTO_PALY": u2play,
-                "Current_time" : ctime,
-                "Full_time": ftime
-
-            }
-     
-        except Exception as e:
-            print(e)
-        return payload
-
+            self.__driver.get(url)
+            return True
+        except :
+            return False
     def execute_action(self,action,shift = False):
 
         '''
             Function performs all the basic command using its 
                 shortcut, such as (play (K), Mute (M)...etc)
                                                                 '''
-                                                                
+                                                               
         try:
-            WebDriverWait(self.__driver, 10).until(
-                EC.presence_of_element_located((By.ID, TAGS["PLAYER_CONTAINER"]))
+            container = WebDriverWait(self.__driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, TAGS["VIDEO_PLAYER"]))
             )
+            self.action.move_to_element(container).perform()
             if shift:
                 self.action.send_keys(Keys.SHIFT+action)
             else :
                 self.action.send_keys(action)
 
             self.action.perform()
-            return self.get_status()
+            return True
         except Exception:
             print(Exception)
             return False
@@ -90,35 +80,61 @@ class Utils:
             button.click()
             return True
         except: return False
-
-    def subscribe(self):
+    def toggle_auto_play(self):
         try:
-            button = WebDriverWait(self.__driver, 5).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, SELECTORS["SUBSCRIBE"]))
-            )
-            
-            button.click()
+            self.__driver.execute_script(SCRIPTS["AUTO_PLAY"])
             return True
-        except: return False    
-    def set_quality (self,quality):
+        except: return False
+    def toggle_subscribe(self):
         try:
             WebDriverWait(self.__driver, 5).until(
-                EC.invisibility_of_element_located((By.CSS_SELECTOR, SELECTORS["OPTIONS_BUTTON"]))
-            )
-            self.__driver.execute_script(SCRIPTS["SETTINGS"])
-        
-            self.__driver.execute_script(SCRIPTS["QUALITY"])
-            time.sleep(.3)
+                EC.presence_of_element_located((By.CSS_SELECTOR, SELECTORS["SUBSCRIBE"]))
+            ).click()
+            self.__driver.find_element_by_css_selector(SELECTORS["UNSUBSCRIBE"]).click()
             
-            self.__driver.execute_script(quality)
-            return True    
-            
+            return True
+        except: return False    
+    
+
+    
+    def set_quality (self,quality):
+        self.__driver.execute_script(SCRIPTS["SETTINGS"])
+        try:
+            # time.sleep(.2)
+            # self.__driver.execute_script(SCRIPTS["QUALITY"])
+            # time.sleep(.2)
+            # self.__driver.execute_script(SCRIPTS[quality])
+            # return True  
+
+            # click settings
+            # self.__driver.find_element_by_css_selector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-button.ytp-settings-button.ytp-hd-quality-badge").click()
+            time.sleep(0.3)
+            menu_selections = self.__driver.find_element_by_css_selector('#ytp-id-17 > div').find_elements_by_css_selector('#ytp-id-17 > div > div')
+            time.sleep(0.1)
+            menu_selections[len(menu_selections)].click()
+            time.sleep(0.1)
+            menu_selections = self.__driver.find_element_by_css_selector('#ytp-id-17 > div > div.ytp-panel-menu').find_elements_by_css_selector('#ytp-id-17 > div > div.ytp-panel-menu > div')
+            if quality == "HIGHEST":
+                menu_selections[0].click()
+            elif quality == "LOWEST":
+                menu_selections[len(menu_selections)-1].click()
+            else:
+                menu_selections[len(menu_selections)].click()
         except Exception:
-                print("im the problem")
-                return False    
+            print('a7a1')
+            try:
+                time.sleep(.3)
+                self.__driver.execute_script(SCRIPTS["QUALITY_SECOND"])
+                time.sleep(.6)
+                
+                self.__driver.execute_script(SCRIPTS[quality+'_SECOND'])
+                return True  
+            except:
+                print('a7a2')
+                return False
 
         
-        
+
 
     def search(self,q):
         try:
@@ -127,7 +143,9 @@ class Utils:
             )
             time.sleep(.1)
             search.clear()
+            time.sleep(.1)
             search.send_keys(str(q))
+            time.sleep(.1)
             search.send_keys(Keys.RETURN)
             return True
         except Exception:
@@ -137,10 +155,10 @@ class Utils:
     def __click_search_result_video(self,index):
         try : 
             container = WebDriverWait(self.__driver, 10).until(
-                EC.presence_of_element_located((By.XPATH, XPATHS["VIDEOS_CONTAINER"]))
+                EC.presence_of_element_located((By.XPATH, XPATHS["SEARCH_RESULTS"]))
             )
-            time.sleep(2)
-            container.find_elements_by_tag_name(TAGS["VIDEO_PLAYER"])[index].find_element_by_css_selector('#video-title > yt-formatted-string').click()
+            
+            container.find_elements_by_tag_name(TAGS["SEARCH_VIDEO_PLAYER"])[index].find_element_by_css_selector('#video-title > yt-formatted-string').click()
             return True
         except Exception:
             return False
@@ -180,51 +198,7 @@ class Utils:
             
             return False
     
-    def get_home_videos(self):
-        payload = []
-        try:
-            self.action.send_keys(Keys.PAGE_DOWN).send_keys(Keys.PAGE_UP)
-            containers=WebDriverWait(self.__driver, 10).until(
-                 EC.presence_of_all_elements_located((By.TAG_NAME,'ytd-rich-grid-row'))
-                )
-            
-            for i in range(2):
-                container = containers[i].find_elements_by_tag_name('ytd-rich-item-renderer')
-                
-                for video in container:
-                    
-                    x = video.text.split('\n')
-                    
-                    payload.append({
 
-                    'duration' : x[0],
-                    'title' : x[1],
-                    'channel' : x[2],
-                    'views' : x[3],
-                    'date' : x[4]     
-
-                    })
-            
-            
-        except Exception:
-            print(Exception)
-        return payload
     
-    def get_recommended_videos(self):
-        payload = []
-        videos = self.__driver.find_element_by_tag_name('ytd-watch-next-secondary-results-renderer').find_elements_by_tag_name('ytd-compact-video-renderer')
-        
-        for i in range(0,5):
-            x = videos[i].text.split('\n')
-            payload.append({
 
-             'duration' : x[0],
-             'title' : x[1],
-             'channel' : x[2],
-             'views' : x[3],
-             'date' : x[4]   
-
-            })
         
-        return payload
-    
