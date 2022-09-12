@@ -1,7 +1,7 @@
-import json
+
 from time import sleep
-from turtle import forward
 from src import YoutubeController,Remote
+
 def test_remote():
     global driver
     global remote
@@ -15,6 +15,7 @@ def test_remote():
 
 def test_open_video():
     assert remote.go_to_url('https://www.youtube.com/watch?v=Z-48u_uWMHY&list=RD_ST6ZRbhGiA&index=10&ab_channel=KendrickLamarVEVO')
+    sleep(2)
     return remote.get_status(flag=False,wait = True, encode= False)['page_status']['state'] == "watch"
     
         
