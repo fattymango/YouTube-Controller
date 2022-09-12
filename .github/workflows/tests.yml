@@ -36,6 +36,7 @@ jobs:
         pip install psutil
         pip install requests
         pip install webdriver_manager
+        pip install -e .
         
     - name: Test with pytest
       run: python -m pytest
