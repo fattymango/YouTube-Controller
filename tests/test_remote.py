@@ -1,75 +1,70 @@
+import json
 from time import sleep
+from turtle import forward
 from src import YoutubeController,Remote
-
 def test_remote():
     global driver
     global remote
-    
-    controller = YoutubeController("https://www.youtube.com/watch?v=klZNvJArVSE&ab_channel=BennytheButcher",True)
+    global controller
+    controller = YoutubeController('https://www.youtube.com/',True)
     driver = controller.get_driver()
     remote = Remote(driver)
     
     assert remote != None
 
 
-def test_start_video():
-    for i in range(0,20):
-        if  remote.get_current_window_state() == "WATCH":
-            return True
-        else : sleep(.5)
-    assert False
+def test_open_video():
+    assert remote.go_to_url('https://www.youtube.com/watch?v=Z-48u_uWMHY&list=RD_ST6ZRbhGiA&index=10&ab_channel=KendrickLamarVEVO')
+    return remote.get_status(flag=False,wait = True, encode= False)['page_status']['state'] == "watch"
+    
+        
 
 def test_play():
-    sleep(.2)
-    status_before = remote.get_status()["Playing"]
-    sleep(.2)
-    status = remote.toggle_play()["Playing"]
-    assert status_before != status
+    assert  remote.toggle_play() == True
 
-
+def test_set_quality():
+    assert remote.set_quality(1) == True
 def test_mute():
-    status_before = remote.get_status()["Muted"]
-    status = remote.toggle_mute()["Muted"]
-    assert status_before != status
+    assert  remote.toggle_mute() == True
 
 def test_forward():
-    status_before = remote.get_status()["Current_time"]
-    sleep(0.1)
-    status = remote.forward_10s()["Current_time"]
-    assert status_before != status
+   assert  remote.forward_10s() == True
 
 def test_backward():
-    status_before = remote.get_status()["Current_time"]
-    status = remote.backward_10s()["Current_time"]
-    assert status_before != status
+   assert  remote.backward_10s() == True
+
+def test_volume_up():
+   assert  remote.volume_up() == True
+
+def test_volume_down():
+   assert  remote.volume_down() == True
+
+def test_paly_back_speed_up():
+   assert  remote.paly_back_speed_up() == True
+
+def test_paly_back_speed_down():
+   assert  remote.paly_back_speed_down() == True
+
+def test_start_of_video():
+   assert  remote.start_of_video() == True
+
+def test_end_of_video():
+   assert  remote.end_of_video() == True
+
+def test_auto_play():
+   assert  remote.toggle_auto_play() == True
+
+def test_playback_up():
+   assert  remote.playback_up()    == True
+
+def test_playback_down():
+   assert  remote.playback_down()    == True
+
 
 def test_search():
     assert remote.search("The Weeknd") == True
-    for _ in range(5):
-        if remote.get_current_window_state() == "SEARCH" :
-            return True
-        sleep(.8)
-    assert False
-
-
-
-def test_select_video():
-    remote.select_video(2)
-    for _ in range(5):
-        if remote.get_current_window_state() == "WATCH" :
-            return True
-        sleep(.8)
-        remote.select_video(2)
-    assert False
-    
-def test_set_quality():
-    assert remote.set_quality(1) == True
-    
-def test_recommendations():
-    sleep(2)
-    assert len(remote.get_recommendations()) != 0
-
+    sleep(5)
+    return remote.get_status(flag=False,wait = True, encode= False)['page_status']['state']   == "search" 
+         
 def test_teardown():
-    driver.close()
-    driver.quit()
-    
+    controller.close_driver()

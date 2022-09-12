@@ -28,8 +28,8 @@ class Remote:
         self.__driver = None
         self.utils.destroy_driver()
         self.status.destroy_driver()
-    def get_status(self,flag = True,wait = False):
-        return self.status.get_status(flag,wait)
+    def get_status(self,flag = True,wait = False,encode = True):
+        return self.status.get_status(flag,wait,encode)
     def volume_up(self): 
         return self.utils.execute_action(Keys.ARROW_UP)
     def volume_down(self): 

@@ -84,6 +84,6 @@ TAGS = {
 ,"SEARCH_VIDEO_PLAYER"         :   'ytd-video-renderer'
 ,"SUGGESTED_VIDEO"             :   'ytd-compact-video-renderer'
 ,"CHANNEL_CONTAINER"           :   'ytd-video-owner-renderer'
-,"VIDEO_PLAYER"                :   '#movie_player > div.html5-video-container > video'
+,"VIDEO_PLAYER"                :   '#movie_player'
 }
 

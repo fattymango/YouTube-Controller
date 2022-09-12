@@ -37,6 +37,7 @@ class Utils:
             self.__driver.get(url)
             return True
         except :
+            print('lmao')
             return False
     def execute_action(self,action,shift = False):
 
@@ -51,9 +52,9 @@ class Utils:
             )
             self.action.move_to_element(container).perform()
             if shift:
-                self.action.send_keys(Keys.SHIFT+action)
+                container.send_keys(Keys.SHIFT+action)
             else :
-                self.action.send_keys(action)
+               container.send_keys(action)
 
             self.action.perform()
             return True
@@ -98,39 +99,37 @@ class Utils:
 
     
     def set_quality (self,quality):
-        self.__driver.execute_script(SCRIPTS["SETTINGS"])
         try:
-            # time.sleep(.2)
-            # self.__driver.execute_script(SCRIPTS["QUALITY"])
-            # time.sleep(.2)
-            # self.__driver.execute_script(SCRIPTS[quality])
-            # return True  
-
-            # click settings
-            # self.__driver.find_element_by_css_selector("#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-button.ytp-settings-button.ytp-hd-quality-badge").click()
-            time.sleep(0.3)
-            menu_selections = self.__driver.find_element_by_css_selector('#ytp-id-17 > div').find_elements_by_css_selector('#ytp-id-17 > div > div')
-            time.sleep(0.1)
-            menu_selections[len(menu_selections)].click()
-            time.sleep(0.1)
-            menu_selections = self.__driver.find_element_by_css_selector('#ytp-id-17 > div > div.ytp-panel-menu').find_elements_by_css_selector('#ytp-id-17 > div > div.ytp-panel-menu > div')
+            self.__driver.execute_script(SCRIPTS["SETTINGS"])
+            time.sleep(.2)
+            self.__driver.execute_script(SCRIPTS["QUALITY"])
+        except:
+            print('here')
+            self.__driver.execute_script(SCRIPTS["QUALITY_SECOND"])
+        try:
+            time.sleep(0.5)
+            quality_selections = self.__driver.find_element_by_css_selector('#ytp-id-17 > div > div.ytp-panel-menu').find_elements_by_css_selector('#ytp-id-17 > div > div.ytp-panel-menu > div')
+            # print(quality_selections,len(quality_selections))
             if quality == "HIGHEST":
-                menu_selections[0].click()
+                quality_selections[0].click()
             elif quality == "LOWEST":
-                menu_selections[len(menu_selections)-1].click()
+                quality_selections[len(quality_selections)-2].click()
             else:
-                menu_selections[len(menu_selections)].click()
+                quality_selections[len(quality_selections)-1].click()
+            return True 
         except Exception:
-            print('a7a1')
+            # print('a7a1')
             try:
-                time.sleep(.3)
-                self.__driver.execute_script(SCRIPTS["QUALITY_SECOND"])
-                time.sleep(.6)
-                
-                self.__driver.execute_script(SCRIPTS[quality+'_SECOND'])
+                time.sleep(0.5)
+                quality_selections = self.__driver.find_element_by_css_selector('#ytp-id-18 > div > div.ytp-panel-menu').find_elements_by_css_selector('#ytp-id-18 > div > div.ytp-panel-menu > div')
+                if quality == "HIGHEST":
+                    quality_selections[0].click()
+                elif quality == "LOWEST":
+                    quality_selections[len(quality_selections)-2].click()
+                else:
+                    quality_selections[len(quality_selections)-1].click()
                 return True  
             except:
-                print('a7a2')
                 return False
 
         

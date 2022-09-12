@@ -29,7 +29,7 @@ class YoutubeController:
         self.__load_page()
         self.__driver.set_window_position(0,0)
         self.__driver.maximize_window()
-        self.__driver.fullscreen_window()
+        # self.__driver.fullscreen_window()
     def __setup(self,testing=False):
         
         if testing:

@@ -12,7 +12,7 @@ class Status:
     def __init__(self,driver) -> None:
         self.__driver = driver
         self.__is_on = True
-    def get_status(self,flag = True,wait = False):
+    def get_status(self,flag = True,wait = False,encode = True):
         payload = {}
         try:
             if(self.__is_on):
@@ -21,28 +21,29 @@ class Status:
                 
                 if  flag:  
                     WebDriverWait(self.__driver, 7).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR,SELECTORS['TITLE']))
-                )
+                    EC.presence_of_element_located((By.CSS_SELECTOR,SELECTORS['TITLE'])))
+
                     payload = {
                     'is_on' : str(self.__is_on).lower(),
                     'page_status' : self.page_status(),
                     'video_status' : self.current_video_status(),  
                     'suggestions' : self.suggested_videos()
-                }
+                    }
                 else:
                     payload = {
                     'is_on' : str(self.__is_on).lower(),
                     'page_status' : self.page_status(),
                     'video_status' : self.current_video_status(),  
                     
-                }
+                    }
             else:
                 payload = {
                     'is_on' : str(self.__is_on).lower(),
                     }
         except Exception as e:
             print(e)
-        return json.dumps(payload) 
+
+        return json.dumps(payload) if encode  else  payload
     def set_driver(self,driver):
         self.__driver = driver
         self.__is_on = True
@@ -55,6 +56,14 @@ class Status:
         body = self.__driver.find_element_by_tag_name('body')
         body.send_keys(Keys.PAGE_DOWN)
         body.send_keys(Keys.PAGE_DOWN)
+        body.send_keys(Keys.PAGE_DOWN)
+        body.send_keys(Keys.PAGE_DOWN)
+        body.send_keys(Keys.PAGE_DOWN)
+        body.send_keys(Keys.PAGE_DOWN)
+        body.send_keys(Keys.PAGE_UP)
+        body.send_keys(Keys.PAGE_UP)
+        body.send_keys(Keys.PAGE_UP)
+        body.send_keys(Keys.PAGE_UP)
         body.send_keys(Keys.PAGE_UP)
         body.send_keys(Keys.PAGE_UP)
         body.send_keys(Keys.PAGE_UP)
@@ -172,7 +181,7 @@ class Status:
                 )
             data = []
             
-            for i in range(6):
+            for i in range(15):
                 try:
                     container = containers[i].find_elements_by_tag_name(video_tag)
                     
