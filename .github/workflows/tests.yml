@@ -34,7 +34,10 @@ jobs:
         pip install pytest
         pip install selenium==4.1.2
         pip install psutil
-        
+        pip install os
+        pip install requests
+        pip install subprocess
+        pip install time
         
     - name: Test with pytest
       run: python -m pytest
