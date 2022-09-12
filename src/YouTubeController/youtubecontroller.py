@@ -1,5 +1,6 @@
 import time
 import pathlib
+import psutil
 import os
 import requests
 import subprocess
@@ -39,8 +40,8 @@ class YoutubeController:
             options.add_argument('--disable-dev-shm-usage')
             driver = webdriver.Remote(options=options)
         else : 
-            
             if self.__check_instance_running():
+                
                 if not self.__check_instance_port():
                     subprocess.call("TASKKILL /F /IM chrome.exe", shell=False)
                     self.__create_new_instance()
@@ -61,7 +62,6 @@ class YoutubeController:
             return False
 
     def __check_instance_running(self):
-        import psutil
         return "chrome.exe" in (i.name() for i in psutil.process_iter())
         
     def __create_new_instance(self):
