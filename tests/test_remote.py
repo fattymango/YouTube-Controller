@@ -23,8 +23,8 @@ def test_open_video():
 def test_play():
     assert  remote.toggle_play() == True
 
-def test_set_quality():
-    assert remote.set_quality(1) == True
+# def test_set_quality():
+#     assert remote.set_quality(1) == True
 def test_mute():
     assert  remote.toggle_mute() == True
 
