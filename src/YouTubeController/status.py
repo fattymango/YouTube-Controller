@@ -104,7 +104,7 @@ class Status:
             print(selector)
             value = None
         return value
-    def get_true_value(self,var, expression,value):
+    def __get_true_value(self,var, expression,value):
         try:    
             return value if var == expression else not value
         except:
@@ -137,17 +137,17 @@ class Status:
             
             
             payload = {
-                "playing" :             self.__clean_string (str(self.get_true_value(play,"Pause (k)",True )).lower()),
-                "muted" :               self.__clean_string (str(self.get_true_value(mute,"Unmute (m)",True )).lower()),
-                "full_screen":          self.__clean_string (str(self.get_true_value(fullscreen,"Full screen (f)",False )).lower()),
+                "playing" :             self.__clean_string (str(self.__get_true_value(play,"Pause (k)",True )).lower()),
+                "muted" :               self.__clean_string (str(self.__get_true_value(mute,"Unmute (m)",True )).lower()),
+                "full_screen":          self.__clean_string (str(self.__get_true_value(fullscreen,"Full screen (f)",False )).lower()),
                 "current_time" :        self.__clean_string (str(ctime)),
                 "full_time":            self.__clean_string (str(ftime)),
                 "title" :               self.__clean_string (str(title)),
                 "views" :               self.__clean_string (str(views)),
-                "auto_play":            self.__clean_string (str(self.get_true_value(au2play,"true",True )).lower()),
+                "auto_play":            self.__clean_string (str(self.__get_true_value(au2play,"true",True )).lower()),
                 "subtitle_pressed":     self.__clean_string (str(subtitle_pressed).lower()),
                 "subtitle_available":   self.__clean_string (str(subtitle_available).lower()),
-                "subscribed" :          self.__clean_string (str(self.get_true_value(subscribed,"Subscribed",True )).lower()),
+                "subscribed" :          self.__clean_string (str(self.__get_true_value(subscribed,"Subscribed",True )).lower()),
                 "like"  :               self.__clean_string (str(like).lower()),
                 "dislike"  :            self.__clean_string (str(dislike).lower()),
                 "channel"  :            self.__clean_string (str(channel)),

@@ -12,8 +12,8 @@ class Operator:
         self.remote = Remote(self.controller.get_driver())
         self.server = Server(self.remote)
         self.__COMMANDS = {
-            0:   self.keep_connection,
-            1:   self.keep_connection,
+            0:   self.__keep_connection,
+            1:   self.__keep_connection,
             3:   self.__destroy_driver,
             4:   self.__start_driver,
 
@@ -48,7 +48,7 @@ class Operator:
                     Switch Cases 
                                             '''
 
-    def keep_connection(self):
+    def __keep_connection(self):
         return True
     def __destroy_driver(self):
         self.controller.close_driver()

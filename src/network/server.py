@@ -11,7 +11,7 @@ class Server:
     ) -> None:
         
         self.HEADER_LENGTH = 10
-        self.IP = "192.168.1.14"
+        self.IP = socket.gethostbyname(socket.gethostname())
         self.PORT = 1234
         self.server_socket = None
         self.sockets_list = []
@@ -25,11 +25,11 @@ class Server:
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-        self.server_socket.bind((socket.gethostbyname(socket.gethostname()), self.PORT))
+        self.server_socket.bind((self.IP , self.PORT))
 
         self.server_socket.listen()
         self.sockets_list.append(self.server_socket)
-        print(f'Listening for connections on {socket.gethostbyname(socket.gethostname())}:{self.PORT}...')
+        print(f'Listening for connections on {self.IP}:{self.PORT}...')
 
     def __receive_compound_message(self,data):
         command,option = int(data[:2]),data[2:]
