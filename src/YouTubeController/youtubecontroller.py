@@ -1,3 +1,4 @@
+import sys
 import time
 import pathlib
 import psutil
@@ -25,13 +26,12 @@ class YoutubeController:
                                                             '''
     def __init__(self,url,testing:bool=False) -> None:
         self.__url = url
-        self.__driver = self.__setup(testing)
-        self.__load_page()
-        self.__driver.set_window_position(0,0)
-        self.__driver.maximize_window()
+        self.initialize_driver(testing)
         # self.__driver.fullscreen_window()
     def __setup(self,testing=False):
-        
+        print(f'\033[96mPlease wait a moment while we set you up...\033[0m\n')
+        self.__clear()
+        print(f'\033[96mPlease wait a moment while we set you up...\033[0m\n')
         if testing:
             options = webdriver.ChromeOptions()
             options.add_argument('load-extension=' + str(pathlib.Path().resolve()).replace('\\','\\\\')+EXTENSION)
@@ -40,20 +40,21 @@ class YoutubeController:
             options.add_argument('--disable-dev-shm-usage')
             driver = webdriver.Remote(options=options)
         else : 
+            os.environ['WDM_LOG_LEVEL'] = '0'
             if self.__check_instance_running():
-                
                 if not self.__check_instance_port():
                     subprocess.call("TASKKILL /F /IM chrome.exe", shell=False)
                     self.__create_new_instance()
+            else:
+                self.__create_new_instance()
             chrome_options = Options()
+            chrome_options.add_argument('--log-level=3')
             chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
-            
             driver = webdriver.Chrome(ChromeDriverManager(print_first_line=False).install(),options=chrome_options,)
-            
-            
-        
+        print(f'\033[96mYou are all set!\033[0m\n')
         return driver
-    
+    def __clear(self):
+        os.system('cls' if os.name == 'nt' else 'clear')
     def __check_instance_port(self):
         try:
             requests.get("http://127.0.0.1:9222/")
@@ -78,12 +79,8 @@ class YoutubeController:
         return self.__driver
     
 
-
-        
-        
-
-    def initialize_driver (self):
-        self.__driver = self.__setup(False)
+    def initialize_driver (self,testing:bool = False):
+        self.__driver = self.__setup(testing)
         self.__load_page()
         self.__driver.set_window_position(0,0)
         self.__driver.maximize_window()
@@ -92,3 +89,6 @@ class YoutubeController:
         self.__driver.close()
         self.__driver.quit()
         self.__driver = None
+    def __del__(self):
+        self.close_driver()
+        sys.exit(0)

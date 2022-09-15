@@ -2,6 +2,8 @@
 
 import json
 from time import sleep
+
+import datetime
 from YouTubeController.keys import SELECTORS, XPATHS,TAGS
 
 from selenium.webdriver.support.ui import WebDriverWait
@@ -12,36 +14,43 @@ class Status:
     def __init__(self,driver) -> None:
         self.__driver = driver
         self.__is_on = True
-    def get_status(self,flag = True,wait = False,encode = True):
+        self.__latest_url = ''
+        self.__last_collected = None
+    def check_new_url(self):
+        print(self.__latest_url ,self.__driver.current_url)
+        flag = self.__latest_url == self.__driver.current_url
+        print (flag)
+        self.__latest_url =  self.__driver.current_url
+        return not flag
+    def minute_passed(self):
+        if self.__last_collected == None:
+            self.__last_collected = datetime.datetime.now()
+            return True
+        elif abs((self.__last_collected-datetime.datetime.now()).total_seconds()) >= 60:
+            self.__last_collected = datetime.datetime.now()
+            return True
+        else:
+            return False
+    def get_status(self,suggestions = True,wait = False,encode = True):
         payload = {}
         try:
+            payload['is_on'] = str(self.__is_on).lower()
             if(self.__is_on):
-                if wait:
-                    sleep(1.5)
-                
-                if  flag:  
+                if wait : sleep(1.5)
+                payload['page_status' ]= self.page_status()
+                if  suggestions : payload ['suggestions'] = self.suggested_videos()
+                if (self.check_new_url() or self.minute_passed()):
+                    self.__last_collected = datetime.datetime.now()
                     WebDriverWait(self.__driver, 7).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR,SELECTORS['TITLE'])))
-
-                    payload = {
-                    'is_on' : str(self.__is_on).lower(),
-                    'page_status' : self.page_status(),
-                    'video_status' : self.current_video_status(),  
-                    'suggestions' : self.suggested_videos()
-                    }
-                else:
-                    payload = {
-                    'is_on' : str(self.__is_on).lower(),
-                    'page_status' : self.page_status(),
-                    'video_status' : self.current_video_status(),  
+                    payload['video_status'] = self.current_video_status() 
+                
+                
                     
-                    }
-            else:
-                payload = {
-                    'is_on' : str(self.__is_on).lower(),
-                    }
+
         except Exception as e:
-            print(e)
+            pass
+            # print(e)
 
         return json.dumps(payload) if encode  else  payload
     def set_driver(self,driver):
@@ -87,21 +96,22 @@ class Status:
             }
      
         except Exception as e:
-            print(e)
+            pass
+            # print(e)
         return payload
     def __get_text(self,selector):
         
         try:
             value = self.__driver.find_element_by_css_selector(SELECTORS[selector]).text
         except:
-            print(selector)
+            # print(selector)
             value = None
         return value
     def __get_attribute(self,selector,attribute):
         try: 
             value = self.__driver.find_element_by_css_selector(SELECTORS[selector]).get_attribute(attribute)
         except:
-            print(selector)
+            # print(selector)
             value = None
         return value
     def __get_true_value(self,var, expression,value):
@@ -110,6 +120,9 @@ class Status:
         except:
             return None
     def current_video_status(self):
+        container = WebDriverWait(self.__driver, 10).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR, TAGS["VIDEO_PLAYER"]))
+            ).send_keys(',')
         payload = {}
         if not self.get_current_window_state() == 'WATCH':return payload
         try:
@@ -157,7 +170,8 @@ class Status:
             } 
      
         except Exception as e:
-            print(e)
+            print
+            # print(e)
         return payload
 
 

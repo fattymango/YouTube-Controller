@@ -1,4 +1,5 @@
 
+import os
 import socket
 import select
 import json
@@ -19,7 +20,8 @@ class Server:
         self.remote = remote
         self.__setup() 
         
-        
+    def __clear(self):
+        os.system('cls' if os.name == 'nt' else 'clear')    
     def __setup(self):
 
         self.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -29,8 +31,8 @@ class Server:
 
         self.server_socket.listen()
         self.sockets_list.append(self.server_socket)
-        print(f'Listening for connections on {self.IP}:{self.PORT}...')
-
+        self.__clear()
+        print(f'\nYour local IP is \033[32m{self.IP}\033[0m')
     def __receive_compound_message(self,data):
         command,option = int(data[:2]),data[2:]
         print(command,option)
@@ -63,7 +65,7 @@ class Server:
         if client_socket not in self.sockets_list:
             self.sockets_list.append(client_socket)
         self.clients[client_socket] = user
-        print('Accepted new connection from {}:{}, username: {}'.format(*client_address, user['data']))
+        print('\033[92mAccepted new connection from {}:{}, username: {}\033[0m'.format(*client_address, user['data']))
         return True
 
     def get_new_message(self,notified_socket):
@@ -95,7 +97,7 @@ class Server:
                     if not is_new_message : continue
                     else : 
                         yield  message,option
-                        if int(message) in [1,17,20,21,52,53]:
+                        if int(message) in [0,1,4,17,20,21,52,53]:
                             payload = bytes(json.dumps(self.remote.get_status()),encoding="utf-8")
                         elif int(message) in [3]:
                             payload = bytes(json.dumps(self.remote.get_status()),encoding="utf-8")
@@ -105,7 +107,7 @@ class Server:
                             payload= bytes(json.dumps(self.remote.get_status(flag = False)),encoding="utf-8")
                         notified_socket.send(payload)
                         notified_socket.close()
-                        print('Closed connection from: {}'.format(self.clients[notified_socket]['data']))        
+                        print('\033[31mClosed connection from: {}\033[0m'.format(self.clients[notified_socket]['data']))        
                         self.sockets_list.remove(notified_socket)
                         del self.clients[notified_socket]
                         

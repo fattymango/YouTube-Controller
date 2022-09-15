@@ -37,7 +37,7 @@ class Utils:
             self.__driver.get(url)
             return True
         except :
-            print('lmao')
+            # print('lmao')
             return False
     def execute_action(self,action,shift = False):
 
@@ -59,7 +59,7 @@ class Utils:
             self.action.perform()
             return True
         except Exception:
-            print(Exception)
+            # print(Exception)
             return False
             
     def like_video(self):
@@ -104,7 +104,7 @@ class Utils:
             time.sleep(.2)
             self.__driver.execute_script(SCRIPTS["QUALITY"])
         except:
-            print('here')
+            # print('here')
             self.__driver.execute_script(SCRIPTS["QUALITY_SECOND"])
         try:
             time.sleep(0.5)
@@ -148,7 +148,7 @@ class Utils:
             search.send_keys(Keys.RETURN)
             return True
         except Exception:
-            print(Exception)
+            # print(Exception)
             return False
         
     def __click_search_result_video(self,index):

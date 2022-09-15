@@ -38,6 +38,7 @@ class Operator:
             29:  self.remote.playback_down,
             30:  self.remote.volume_up,
             31:  self.remote.volume_down,
+            
             51:  self.remote.set_quality,
             52:  self.remote.select_video,
             53:  self.remote.go_to_url, 
@@ -102,8 +103,6 @@ class Operator:
 
                     inp = int(input())                   
                     self.__COMMANDS[inp]()
-                    
-                # self.clear()
 
     def clear(self):
         os.system('cls' if os.name == 'nt' else 'clear')
