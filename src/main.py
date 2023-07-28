@@ -1,7 +1,5 @@
 
-from YouTubeController.keys import YOUTUBE
-from YouTubeController.operator import Operator
-from YouTubeController.youtubecontroller import YoutubeController
+
 
 
 '''
@@ -10,6 +8,13 @@ from YouTubeController.youtubecontroller import YoutubeController
             to be passes to the Remote and calling 
                 main().
                                                         '''
+
+
+from YouTubeController.youtubecontroller import YoutubeController
+
+from YouTubeController.keys import YOUTUBE
+
+from YouTubeController.operator import Operator
 
 
 driver = YoutubeController(YOUTUBE)

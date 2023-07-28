@@ -97,7 +97,7 @@ class Server:
                     if not is_new_message : continue
                     else : 
                         yield  message,option
-                        if int(message) in [0,1,4,17,20,21,52,53]:
+                        if int(message) in [1,4,17,20,21,52,53]:
                             payload = bytes(json.dumps(self.remote.get_status()),encoding="utf-8")
                         elif int(message) in [3]:
                             payload = bytes(json.dumps(self.remote.get_status()),encoding="utf-8")

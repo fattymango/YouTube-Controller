@@ -10,10 +10,12 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+
 class Status:
     def __init__(self,driver) -> None:
         self.__driver = driver
         self.__is_on = True
+        self.last_current_video_status_payload  = {}
         self.__latest_url = ''
         self.__last_collected = None
     def check_new_url(self):
@@ -38,12 +40,15 @@ class Status:
             if(self.__is_on):
                 if wait : sleep(1.5)
                 payload['page_status' ]= self.page_status()
+                payload['new_video_status'] = False
+                payload['video_status'] = self.last_current_video_status_payload
                 if  suggestions : payload ['suggestions'] = self.suggested_videos()
                 if (self.check_new_url() or self.minute_passed()):
                     self.__last_collected = datetime.datetime.now()
                     WebDriverWait(self.__driver, 7).until(
                     EC.presence_of_element_located((By.CSS_SELECTOR,SELECTORS['TITLE'])))
                     payload['video_status'] = self.current_video_status() 
+                    payload['new_video_status'] = True
                 
                 
                     
@@ -168,7 +173,8 @@ class Status:
                 "url" :                 self.__clean_string (str(url)),
                 "thumbnail":            self.__clean_string (str(self.__get_video_thumbnail(url)))
             } 
-     
+            # print(payload)
+            self.last_current_video_status_payload = payload
         except Exception as e:
             print
             # print(e)
@@ -185,46 +191,40 @@ class Status:
     def __get_recommended_videos(self):
         return self.__videos_serializer('ytd-item-section-renderer','ytd-compact-video-renderer')
     def __get_home_videos(self):
-        return self.__videos_serializer('ytd-rich-grid-row','ytd-rich-item-renderer')
+        return self.__videos_serializer('ytd-rich-grid-row','ytd-rich-grid-media')
     def __videos_serializer(self,videos_container,video_tag):
         payload = []
-        try:
-            
-            containers=WebDriverWait(self.__driver, 10).until(
-                 EC.presence_of_all_elements_located((By.TAG_NAME,videos_container))
-                )
-            data = []
-            
-            for i in range(15):
-                try:
-                    container = containers[i].find_elements_by_tag_name(video_tag)
-                    
-                    for video in container:
-                        try:
-                            thumbnail_container = video.find_element_by_id('thumbnail')
-                            url = thumbnail_container.get_attribute('href')
-                        
-                            thumbnail = thumbnail_container.find_element_by_id('img').get_attribute('src')
-                            
-                            x = video.text.split('\n')
-                            
-                            data.append({
-                            'url' : self.__clean_string(url),
-                            'duration' : self.__clean_string(x[0]),
-                            'title' : self.__clean_string(x[1]),
-                            'channel' : self.__clean_string(x[2]),
-                            'views' : self.__clean_string(x[3]),
-                            'thumbnail' : self.__clean_string(thumbnail)     
+        data=[]
 
-                            })
-                        except : pass
-                except : pass
+        try:
+            container = self.__driver.find_elements_by_tag_name(video_tag)
+            for video in container:
+                try:
+                    thumbnail_container = video.find_element_by_tag_name("a")
+                    # print(f'thumbnail_container ={thumbnail_container}')
+                    url = thumbnail_container.get_attribute('href')
+                    # print(f'url ={url}')
+                    thumbnail = thumbnail_container.find_element_by_tag_name('img').get_attribute('src')
+                    # print(f'thumbnail ={thumbnail}')
+                    x = video.text.split('\n')
+                    # print(f'text ={x}')
+                    data.append({
+                    'url' : self.__clean_string(url),
+                    'duration' : self.__clean_string(x[0]),
+                    'title' : self.__clean_string(x[1]),
+                    'channel' : self.__clean_string(x[2]),
+                    'views' : self.__clean_string(x[3]),
+                    'thumbnail' : self.__clean_string(thumbnail)     
+
+                    })
+                except Exception as e:
+                    print(e)
             payload = {
                 'length' : len(data),
                 'data'  : data
             }
-        except Exception:
-            pass
+        except Exception as e:
+            print(e)
         return payload
   
 

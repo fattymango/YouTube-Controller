@@ -69,14 +69,15 @@ SELECTORS = {
     ,"FULL_TIME"           :    '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-left-controls > div.ytp-time-display.notranslate > span:nth-child(2) > span.ytp-time-duration' 
     ,"LIKE_BUTTON"         :    '#segmented-like-button > ytd-toggle-button-renderer > yt-button-shape > button'
     ,'DISLIKE_BUTTON'      :    '#segmented-dislike-button > ytd-toggle-button-renderer > yt-button-shape > button'
-    ,'SUBSCRIBE'           :    '#subscribe-button > ytd-subscribe-button-renderer > yt-button-shape > button' 
+    ,'SUBSCRIBE'           :    '#subscribe-button-shape > button > yt-touch-feedback-shape > div > div.yt-spec-touch-feedback-shape__fill' 
+    ,'SUBSCRIBE_TEXT'      :    '#subscribe-button-shape > button > div > span'
     ,'UNSUBSCRIBE'         :    '#confirm-button > yt-button-shape > button > yt-touch-feedback-shape > div > div.yt-spec-touch-feedback-shape__fill'
-    ,'AUTO_PLAY'           :    '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(1) > div > div'
-    ,'SUBTITLE'            :    '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-subtitles-button.ytp-button'
+    ,'AUTO_PLAY'           :    '#movie_player > div.ytp-chrome-bottom.ytp-volume-slider-active > div.ytp-chrome-controls > div.ytp-right-controls > button:nth-child(2) > div > div'
+    ,'SUBTITLE'            :    '#movie_player > div.ytp-chrome-bottom.ytp-volume-slider-active > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-subtitles-button.ytp-button'
     ,'FULLSCREEN'          :    '#movie_player > div.ytp-chrome-bottom > div.ytp-chrome-controls > div.ytp-right-controls > button.ytp-fullscreen-button.ytp-button'
     ,'TITLE'               :    '#title > h1 > yt-formatted-string'
     ,'CHANNEL'             :    '#text > a'
-    ,'VIEWS'               :    '#formatted-snippet-text > span:nth-child(1)'
+    ,'VIEWS'               :    '#info > span:nth-child(1)'
 }
 
 TAGS = {

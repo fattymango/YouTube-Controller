@@ -9,23 +9,23 @@ This is the Alpha version of the project, errors may occur .
 - ## PC Installation:
   Install ```YouTube_Controller.exe``` on your PC and open the app.
   >**Warning**
-  please make sure that Chrome is opened before starting the application.
+  Please make sure that Chrome is opened before starting the application.
 
+  Wait until it finishes the setup and then you will see your local IP like this:
+    ![alt](./github_imgs/ip_pc.png)
 - ## Mobile Installation:
   Install ```YouTube_Controller.apk``` on your smartphone and open the app.
   >**Warning**
-  only the android app is avalabile now due to IOS limitations.
-
-  On the pc side you will see the local IP of your pc:
-
-  ![alt](./github_imgs/ip_pc.png)
+  The app is only avalabile on Android now due to IOS restrictions.
 
   Enter the ip address in the specified field :
 
-  ![alt](./github_imgs/ip_phone.jpg)
+  ![alt](./github_imgs/ip_phone.png)
 
   press done, And you are all set!
 
+- ## Usage:
+![alt](./github_imgs/all.png)
 
 # Contribution
   Any contibution on this project would be appreciated, if you face any issue you can open an issue and we will handle it ASAP.

@@ -83,7 +83,7 @@ venv.bak/
 /site
 
 
-.vscode/*
+.vscode/
 !.vscode/settings.json
 
 
