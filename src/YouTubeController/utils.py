@@ -48,7 +48,7 @@ class Utils:
                                                                
         try:
             container = WebDriverWait(self.__driver, 10).until(
-                EC.presence_of_element_located((By.CSS_SELECTOR, TAGS["VIDEO_PLAYER"]))
+                EC.presence_of_element_located((By.CSS_SELECTOR, SELECTORS["VIDEO_PLAYER"]))
             )
             self.action.move_to_element(container).perform()
             if shift:

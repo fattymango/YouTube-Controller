@@ -42,18 +42,18 @@ class YoutubeController:
         else : 
             os.environ['WDM_LOG_LEVEL'] = '0'
             if self.__check_instance_running():
-                if not self.__check_instance_port():
-                    subprocess.call("TASKKILL /F /IM chrome.exe", shell=False)
-                    self.__create_new_instance()
+                # if not self.__check_instance_port():
+                subprocess.call("TASKKILL /F /IM chrome.exe", shell=False)
+                self.__create_new_instance()
             else:
                 self.__create_new_instance()
             chrome_options = Options()
             chrome_options.add_argument('--log-level=3')
-            # chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
+            chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 
 
-            # driver = webdriver.Chrome(ChromeDriverManager().install(),options=chrome_options,)
-            driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=chrome_options)
+            driver = webdriver.Chrome(ChromeDriverManager(version="114.0.5735.90").install(),options=chrome_options,)
+            # driver = webdriver.Chrome(executable_path='C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\\src\\YouTubeController\\chromedriver.exe',options=chrome_options )
         print(f'\033[96mYou are all set!\033[0m\n')
         return driver
     def __clear(self):

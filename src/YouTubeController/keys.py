@@ -16,12 +16,12 @@ DRIVER      =   "\\YouTubeController\\driver\\chromedriver.exe"
 '''                                                                                                      '''
 
 BUTTONS = {
-"TOGGLE_PLAY"               :   "K"
-,"TOGGLE_CAPTION"           :   "C"
-,"TOGGLE_FULLSCREEN"        :   "F"
-,"TOGGLE_MUTE"              :   "M"
-,"FORWARD"                  :   "L"
-,"BACKWARD"                 :   "J"
+"TOGGLE_PLAY"               :   "k"
+,"TOGGLE_CAPTION"           :   "c"
+,"TOGGLE_FULLSCREEN"        :   "f"
+,"TOGGLE_MUTE"              :   "m"
+,"FORWARD"                  :   "l"
+,"BACKWARD"                 :   "j"
 ,"PLAYBACK_UP"              :   ">"
 ,"PLAYBACK_DOWN"            :   "<"
 }
@@ -78,6 +78,7 @@ SELECTORS = {
     ,'TITLE'               :    '#title > h1 > yt-formatted-string'
     ,'CHANNEL'             :    '#text > a'
     ,'VIEWS'               :    '#info > span:nth-child(1)'
+    ,"VIDEO_PLAYER"                :   '#movie_player'
 }
 
 TAGS = {
