@@ -52,7 +52,7 @@ class YoutubeController:
             chrome_options.add_experimental_option("debuggerAddress", "127.0.0.1:9222")
 
 
-            driver = webdriver.Chrome(ChromeDriverManager(version="114.0.5735.90").install(),options=chrome_options,)
+            driver = webdriver.Chrome(ChromeDriverManager().install(),options=chrome_options,)
             # driver = webdriver.Chrome(executable_path='C:\\Users\\malak\\Desktop\\Projects\\Python\\YoutubeController\\src\\YouTubeController\\chromedriver.exe',options=chrome_options )
         print(f'\033[96mYou are all set!\033[0m\n')
         return driver
